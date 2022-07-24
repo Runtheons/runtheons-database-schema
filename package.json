@@ -1,0 +1,9 @@
+{
+    "name": "@runtheons/database-schema",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {},
+    "author": "Zexal0807",
+    "license": "ISC",
+    "description": ""
+}
