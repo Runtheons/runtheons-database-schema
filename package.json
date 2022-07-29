@@ -1,9 +1,17 @@
 {
-    "name": "@runtheons/database-schema",
-    "version": "1.0.0",
-    "main": "index.js",
-    "scripts": {},
-    "author": "Zexal0807",
-    "license": "ISC",
-    "description": ""
+	"name": "@runtheons/database-schema",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"test": "sequelize db:migrate --config ./tests/config.json --env db && jest --coverage --config ./tests/jest.config.js && sequelize db:migrate:undo:all --config ./tests/config.json --env db"
+	},
+	"author": "Zexal0807",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"jest": "^28.1.3",
+		"mysql2": "^2.3.3",
+		"sequelize": "^6.21.3",
+		"sqlite3": "^5.0.10"
+	}
 }
