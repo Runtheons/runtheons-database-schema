@@ -13,8 +13,8 @@ const loadModels = (sequelize) => {
 	};
 };
 
-const loadRelations = (models) => {
-	require("./relations/User")(models);
+const loadRelationships = (models) => {
+	require("./relationships/User")(models);
 };
 
 const loadHooks = (models) => {
@@ -34,7 +34,7 @@ module.exports = async(config = defaultConfig.db) => {
 	}
 
 	const models = loadModels(sequelize);
-	loadRelations(models);
+	loadRelationships(models);
 	loadHooks(models);
 
 	return {...models, sequelize };
