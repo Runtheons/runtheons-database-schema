@@ -34,6 +34,7 @@ module.exports = async(config = defaultConfig.db) => {
 		await sequelize.authenticate();
 		// console.log("Connection has been established successfully.");
 	} catch (error) {
+		return false;
 		// console.error("Unable to connect to the database:", error);
 	}
 

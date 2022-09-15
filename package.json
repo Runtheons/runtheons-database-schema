@@ -4,8 +4,7 @@
 	"main": "index.js",
 	"scripts": {
 		"migrate": "sequelize db:migrate --config ./migrations/config.json --env db",
-		"test": "jest --coverage --config ./tests/jest.config.js",
-		"test2": "sequelize db:migrate --config ./tests/config.json --env db && jest --coverage --config ./tests/jest.config.js && sequelize db:migrate:undo:all --config ./tests/config.json --env db"
+		"test": "jest --coverage --config ./tests/jest.config.js"
 	},
 	"author": "Zexal0807",
 	"license": "ISC",
