@@ -1,24 +1,24 @@
 const { Sequelize } = require("sequelize");
 
 const loadModels = (sequelize) => {
-	const Log = {};
-	const User = require("./models/User")(sequelize);
+	const Event = require("./models/Event")(sequelize);
+	// const Log = {};
 	// const User = require("./models/User")(sequelize);
+	// const LoginMethods = require("./models/LoginMethod")(sequelize);
 	// const User = require("./models/User")(sequelize);
 	// const User = require("./models/User")(sequelize);
 
 	return {
-		Log: Log,
-		User: User,
+		Event,
 	};
 };
 
 const loadRelationships = (models) => {
-	require("./relationships/User")(models);
+	// require("./relationships/User")(models);
 };
 
 const loadHooks = (models) => {
-	require("./hooks/User")(models);
+	// require("./hooks/User")(models);
 };
 
 let defaultConfig = require("./tests/config.json");
