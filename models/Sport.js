@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
 		sequelize,
 		createdAt: false,
 		updatedAt: false,
-		tableName: "sport",
+		tableName: "sports",
 	});
 
 	return Sport;
