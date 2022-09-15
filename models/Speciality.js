@@ -5,7 +5,7 @@ module.exports = (sequelize) => {
 
 	Speciality.init({
 		idSpeciality: {
-			type: DataTypes.STRING,
+			type: DataTypes.STRING(150),
 			primaryKey: true,
 		},
 	}, {

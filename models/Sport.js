@@ -5,7 +5,7 @@ module.exports = (sequelize) => {
 
 	Sport.init({
 		idSport: {
-			type: DataTypes.STRING,
+			type: DataTypes.STRING(150),
 			primaryKey: true,
 		},
 	}, {
