@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"main": "index.js",
 	"scripts": {
+		"migrate": "sequelize db:migrate --config ./migrations/config.json --env db",
 		"test": "sequelize db:migrate --config ./tests/config.json --env db && jest --coverage --config ./tests/jest.config.js && sequelize db:migrate:undo:all --config ./tests/config.json --env db"
 	},
 	"author": "Zexal0807",
