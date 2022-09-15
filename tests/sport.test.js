@@ -10,24 +10,6 @@ describe("SPORT", () => {
 		);
 	});
 
-	test("R - Read all sports", async() => {
-		const models = await require("../index")();
-		const { Sport } = models;
-
-		let a = await Sport.findAll();
-
-		expect(a.length).toEqual(22);
-	});
-
-	test("R - Search 'CALCIO'", async() => {
-		const models = await require("../index")();
-		const { Sport } = models;
-
-		let a = await Sport.findAll({ where: { idSport: "CALCIO" } });
-
-		expect(a.length).toEqual(1);
-	});
-
 	test("C - Add a sport", async() => {
 		const models = await require("../index")();
 		const { Sport } = models;
@@ -60,5 +42,23 @@ describe("SPORT", () => {
 		} catch (e) {
 			expect(true).toBeTruthy();
 		}
+	});
+
+	test("R - Read all sports", async() => {
+		const models = await require("../index")();
+		const { Sport } = models;
+
+		let a = await Sport.findAll();
+
+		expect(a.length).toEqual(22);
+	});
+
+	test("R - Search 'CALCIO'", async() => {
+		const models = await require("../index")();
+		const { Sport } = models;
+
+		let a = await Sport.findAll({ where: { idSport: "CALCIO" } });
+
+		expect(a.length).toEqual(1);
 	});
 });
