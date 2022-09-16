@@ -10,7 +10,7 @@ module.exports = {
 	},
 	down: async(queryInterface, Sequelize) => {
 		try {
-			await queryInterface.renameTable("sports", "OLD_specialities");
+			await queryInterface.renameTable("OLD_specialities", "specialities");
 		} catch (e) {
 			console.log(e);
 		}
