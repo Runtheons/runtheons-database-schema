@@ -3,18 +3,6 @@
 module.exports = {
 	up: async(queryInterface, Sequelize) => {
 		try {
-			await queryInterface.renameTable("specialities", "OLD_specialities");
-		} catch (e) {
-			console.log(e);
-		}
-	},
-	down: async(queryInterface, Sequelize) => {
-		try {
-			await queryInterface.renameTable("OLD_specialities", "specialities");
-		} catch (e) {
-			console.log(e);
-		}
-		try {
 			await queryInterface.sequelize.query(`ALTER VIEW getusers AS
 			SELECT
 				users.id AS idUser,
@@ -48,7 +36,7 @@ module.exports = {
 				professionists.radius AS radius,
 				pgoals.id AS pgoalid,
 				pgoals.description AS pgoaldescription,
-				specialities.id AS specialityid,
+				specialities.idSpeciality AS specialityid,
 				specialities.description AS specialitydescription
 			FROM users
 			LEFT JOIN athletes ON users.id = athletes.idUser AND users.type = "ATHLETE"
@@ -57,7 +45,7 @@ module.exports = {
 
 			LEFT JOIN professionists ON users.id = professionists.idUser AND users.type = "PROFESSIONIST"
 			LEFT JOIN goals AS pgoals ON professionists.idGoal = pgoals.id AND pgoals.type = "PROFESSIONIST"
-			LEFT JOIN specialities ON professionists.idSpeciality = specialities.id`);
+			LEFT JOIN specialities ON professionists.idSpeciality = specialities.idSpeciality`);
 		} catch (e) {
 			console.log(e);
 		}
@@ -135,10 +123,10 @@ module.exports = {
 						reviews.serviceValutation,
 						reviews.adviceService,
 						reviews.comeBack,
-						specialities.id AS speciality_id,
+						specialities.idSpeciality AS speciality_id,
 						specialities.description AS speciality_description
 					FROM products
-					INNER JOIN specialities ON specialities.id = products.idSpeciality
+					INNER JOIN specialities ON specialities.idSpeciality = products.idSpeciality
 					LEFT JOIN estimates ON estimates.idProduct = products.id
 					LEFT JOIN reviews ON estimates.id = reviews.idEstimate
 				) AS sub
@@ -197,4 +185,5 @@ module.exports = {
 			console.log(e);
 		}
 	},
+	down: async(queryInterface, Sequelize) => {},
 };
