@@ -50,7 +50,7 @@ describe("SPECIALITY", () => {
 
 		let a = await Speciality.findAll();
 
-		expect(a.length).toEqual(22);
+		expect(a.length).toEqual(16);
 	});
 
 	test("R - Search 'DIETISTA'", async() => {
