@@ -5,6 +5,7 @@ const loadModels = (sequelize) => {
 	const Sport = require("./models/Sport")(sequelize);
 	const Goal = require("./models/Goal")(sequelize);
 	const Speciality = require("./models/Speciality")(sequelize);
+	const LoginMethod = require("./models/LoginMethod")(sequelize);
 	// const Log = {};
 	// const User = require("./models/User")(sequelize);
 	// const LoginMethods = require("./models/LoginMethod")(sequelize);
@@ -12,10 +13,11 @@ const loadModels = (sequelize) => {
 	// const User = require("./models/User")(sequelize);
 
 	return {
-		Event: Event,
-		Sport: Sport,
-		Goal: Goal,
-		Speciality: Speciality,
+		Event,
+		Sport,
+		Goal,
+		Speciality,
+		LoginMethod,
 	};
 };
 
@@ -24,7 +26,7 @@ const loadRelationships = (models) => {
 };
 
 const loadHooks = (models) => {
-	// require("./hooks/User")(models);
+	require("./hooks/LoginMethod")(models);
 };
 
 let defaultConfig = require("./tests/config.json");
