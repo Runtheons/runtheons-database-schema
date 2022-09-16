@@ -16,7 +16,7 @@ describe("SPORT", () => {
 
 		let a = await Sport.findAll();
 
-		await Sport.create({ idSport: "ROUJUTSU" });
+		await Sport.create({ description: "ROUJUTSU" });
 
 		let b = await Sport.findAll();
 		expect(b.length).toEqual(a.length + 1);
@@ -28,7 +28,7 @@ describe("SPORT", () => {
 
 		let a = await Sport.findAll();
 
-		await Sport.create({ idSport: "ROUJUTSU" });
+		await Sport.create({ description: "ROUJUTSU" });
 
 		let b = await Sport.findAll();
 		expect(b.length).toEqual(a.length + 1);
@@ -38,7 +38,7 @@ describe("SPORT", () => {
 		const models = await require("../index")();
 		const { Sport } = models;
 		try {
-			await Sport.create({ idSport: "CALCIO" });
+			await Sport.create({ description: "CALCIO" });
 		} catch (e) {
 			expect(true).toBeTruthy();
 		}
@@ -57,7 +57,7 @@ describe("SPORT", () => {
 		const models = await require("../index")();
 		const { Sport } = models;
 
-		let a = await Sport.findAll({ where: { idSport: "CALCIO" } });
+		let a = await Sport.findAll({ where: { description: "CALCIO" } });
 
 		expect(a.length).toEqual(1);
 	});
