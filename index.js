@@ -3,6 +3,7 @@ const { Sequelize } = require("sequelize");
 const loadModels = (sequelize) => {
 	const Event = require("./models/Event")(sequelize);
 	const Sport = require("./models/Sport")(sequelize);
+	const Goal = require("./models/Goal")(sequelize);
 	const Speciality = require("./models/Speciality")(sequelize);
 	// const Log = {};
 	// const User = require("./models/User")(sequelize);
@@ -13,6 +14,7 @@ const loadModels = (sequelize) => {
 	return {
 		Event: Event,
 		Sport: Sport,
+		Goal: Goal,
 		Speciality: Speciality,
 	};
 };
