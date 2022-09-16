@@ -5,8 +5,13 @@ module.exports = (sequelize) => {
 
 	Speciality.init({
 		idSpeciality: {
-			type: DataTypes.STRING(150),
+			type: DataTypes.INTEGER,
 			primaryKey: true,
+			autoIncrement: true,
+		},
+		description: {
+			type: DataTypes.STRING(150),
+			unique: true,
 		},
 	}, {
 		sequelize,
