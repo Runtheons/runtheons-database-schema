@@ -10,17 +10,11 @@ module.exports = {
 			},
 			latitude: {
 				type: Sequelize.FLOAT,
-				validate: {
-					min: -90.0,
-					max: 90.0,
-				},
+				allowNull: false,
 			},
 			longitude: {
 				type: Sequelize.FLOAT,
-				validate: {
-					min: -180.0,
-					max: 180.0,
-				},
+				allowNull: false,
 			},
 			radius: {
 				type: Sequelize.FLOAT,

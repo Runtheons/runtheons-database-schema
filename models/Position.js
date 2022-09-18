@@ -11,6 +11,7 @@ module.exports = (sequelize) => {
 		},
 		latitude: {
 			type: DataTypes.FLOAT,
+			allowNull: false,
 			validate: {
 				min: -90.0,
 				max: 90.0,
@@ -18,6 +19,7 @@ module.exports = (sequelize) => {
 		},
 		longitude: {
 			type: DataTypes.FLOAT,
+			allowNull: false,
 			validate: {
 				min: -180.0,
 				max: 180.0,
