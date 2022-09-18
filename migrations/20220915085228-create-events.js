@@ -32,7 +32,7 @@ module.exports = {
 				allowNull: true,
 			},
 		});
-		await queryInterface.createIndex("events", ["idUser"], {
+		await queryInterface.addIndex("events", ["idUser"], {
 			unique: false,
 		});
 	},
