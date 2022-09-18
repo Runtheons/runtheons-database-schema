@@ -10,6 +10,7 @@ module.exports = {
 			},
 			type: {
 				type: Sequelize.ENUM(["ATHLETE", "PROFESSIONIST"]),
+				allowNull: false,
 			},
 			description: {
 				type: Sequelize.STRING(150),
