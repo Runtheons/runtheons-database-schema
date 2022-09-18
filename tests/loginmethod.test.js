@@ -2,6 +2,7 @@ const exec = require("./exec");
 describe("LOGINMETHOD", () => {
 	beforeEach(async() => {
 		await exec("sequelize db:migrate --config ./tests/config.json --env db");
+		await exec("sequelize db:seed:all --config ./tests/config.json --env db");
 	});
 
 	afterEach(async() => {
@@ -52,8 +53,7 @@ describe("LOGINMETHOD", () => {
 			where: { email: "gallinar00@gmail.com" },
 		});
 
-		//TODO: Add test data
-		expect(a.length).toEqual(0);
+		expect(a.length).toEqual(1);
 	});
 	test("R - Search a login methods of an user by email and type", async() => {
 		const models = await require("../index")();
@@ -63,7 +63,6 @@ describe("LOGINMETHOD", () => {
 			where: { email: "gallinar00@gmail.com", type: "CLASSIC" },
 		});
 
-		//TODO: Add test data
-		expect(a.length).toEqual(0);
+		expect(a.length).toEqual(1);
 	});
 });
