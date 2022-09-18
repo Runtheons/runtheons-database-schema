@@ -32,7 +32,9 @@ module.exports = {
 				allowNull: true,
 			},
 		});
-		await queryInterface.createIndex("events", ["idUser"]);
+		await queryInterface.createIndex("events", ["idUser"], {
+			unique: false,
+		});
 	},
 
 	down: async(queryInterface, Sequelize) => {

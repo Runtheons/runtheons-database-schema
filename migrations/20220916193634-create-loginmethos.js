@@ -13,6 +13,7 @@ module.exports = {
 			},
 			type: {
 				type: Sequelize.ENUM(["CLASSIC"]),
+				allowNull: false,
 			},
 			email: {
 				type: Sequelize.STRING(150),
@@ -25,15 +26,20 @@ module.exports = {
 			},
 			dateCreation: {
 				type: Sequelize.DATE,
+				allowNull: false,
 				defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
 			},
 			lastUpdate: {
 				type: Sequelize.DATE,
+				allowNull: false,
 				defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
 			},
 		});
 		await queryInterface.addIndex("loginmethods", ["idUser", "email"], {
 			unique: true,
+		});
+		await queryInterface.addIndex("loginmethods", ["idUser"], {
+			unique: false,
 		});
 	},
 

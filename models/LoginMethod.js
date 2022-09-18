@@ -14,6 +14,7 @@ module.exports = (sequelize) => {
 		},
 		type: {
 			type: DataTypes.ENUM(["CLASSIC"]),
+			allowNull: false,
 		},
 		email: {
 			type: DataTypes.STRING(150),
@@ -29,18 +30,25 @@ module.exports = (sequelize) => {
 		},
 		dateCreation: {
 			type: DataTypes.DATE,
+			allowNull: false,
 			defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
 		},
 		lastUpdate: {
 			type: DataTypes.DATE,
+			allowNull: false,
 			defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
 		},
 	}, {
 		sequelize,
 		indexes: [{
-			unique: true,
-			fields: ["idUser", "email"],
-		}, ],
+				unique: true,
+				fields: ["idUser", "email"],
+			},
+			{
+				unique: false,
+				fields: ["idUser"],
+			},
+		],
 		createdAt: "dateCreation",
 		updatedAt: "lastUpdate",
 		tableName: "loginmethods",
