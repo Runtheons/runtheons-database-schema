@@ -14,10 +14,12 @@ module.exports = (sequelize) => {
 		},
 		datetime: {
 			type: DataTypes.DATE,
+			allowNull: false,
 			defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
 		},
 		type: {
 			type: DataTypes.ENUM(["USER_CREATION"]),
+			allowNull: false,
 		},
 		value: {
 			type: DataTypes.INTEGER,
@@ -32,6 +34,7 @@ module.exports = (sequelize) => {
 		},
 	}, {
 		sequelize,
+		indexes: [{ unique: false, fields: ["idUser"] }],
 		createdAt: "datetime",
 		updatedAt: false,
 		tableName: "events",

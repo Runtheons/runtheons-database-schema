@@ -13,10 +13,12 @@ module.exports = {
 			},
 			datetime: {
 				type: Sequelize.DATE,
+				allowNull: false,
 				defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
 			},
 			type: {
 				type: Sequelize.ENUM(["USER_CREATION"]),
+				allowNull: false,
 			},
 			value: {
 				type: Sequelize.INTEGER,
@@ -30,6 +32,7 @@ module.exports = {
 				allowNull: true,
 			},
 		});
+		await queryInterface.createIndex("events", ["idUser"]);
 	},
 
 	down: async(queryInterface, Sequelize) => {
