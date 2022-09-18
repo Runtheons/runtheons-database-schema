@@ -6,6 +6,7 @@ const loadModels = (sequelize) => {
 	const Goal = require("./models/Goal")(sequelize);
 	const Speciality = require("./models/Speciality")(sequelize);
 	const LoginMethod = require("./models/LoginMethod")(sequelize);
+	const Position = require("./models/Position")(sequelize);
 	// const Log = {};
 	// const User = require("./models/User")(sequelize);
 	// const LoginMethods = require("./models/LoginMethod")(sequelize);
@@ -18,6 +19,7 @@ const loadModels = (sequelize) => {
 		Goal,
 		Speciality,
 		LoginMethod,
+		Position,
 	};
 };
 
