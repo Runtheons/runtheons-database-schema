@@ -16,6 +16,10 @@ module.exports = {
 				type: Sequelize.FLOAT,
 				allowNull: false,
 			},
+			addressName: {
+				type: Sequelize.STRING(200),
+				allowNull: true,
+			},
 			radius: {
 				type: Sequelize.FLOAT,
 				allowNull: true,
