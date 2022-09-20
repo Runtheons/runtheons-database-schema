@@ -15,7 +15,7 @@ module.exports = (models) => {
 			idUser: loginMethod.idUser,
 			idEvent: "LOGINMETHOD_DELETE",
 			value: loginMethod.idLoginMethod,
-			old: JSON.stringify(_previousDataValues),
+			old: JSON.stringify(loginMethod._previousDataValues),
 			new: JSON.stringify(loginMethod),
 		});
 	});
