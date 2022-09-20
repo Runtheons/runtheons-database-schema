@@ -9,17 +9,70 @@ module.exports = (sequelize) => {
 			primaryKey: true,
 			autoIncrement: true,
 		},
-		email: {
+		status: {
+			type: DataTypes.ENUM([
+				"NOT ACTIVE",
+				"SEMIACTIVE",
+				"ACTIVE",
+				"BANNED",
+				"DELETED",
+			]),
+			allowNull: false,
+		},
+		type: {
+			type: DataTypes.ENUM(["ATHLETE", "PROFESSIONIST"]),
+			allowNull: false,
+		},
+		name: {
 			type: DataTypes.STRING(150),
 			allowNull: false,
-			unique: true,
+		},
+		surname: {
+			type: DataTypes.STRING(150),
+			allowNull: false,
+		},
+		dateBirth: {
+			type: DataTypes.DATE,
+			allowNull: true,
+		},
+		sex: {
+			type: DataTypes.ENUM([
+				"MALE",
+				"FEMALE",
+				"BINARY",
+				"PANGENDER",
+				"BIGENDER",
+				"GENDER FLUID",
+				"NOT SPECIFIED",
+			]),
+			allowNull: true,
+			defaultValue: "NOT SPECIFIED",
+		},
+		photo: {
+			type: DataTypes.STRING(250),
+			allowNull: true,
+		},
+		cover: {
+			type: DataTypes.STRING(250),
+			allowNull: true,
+		},
+		title: {
+			type: DataTypes.STRING(150),
+			allowNull: true,
+			defaultValue: null,
+		},
+		biography: {
+			type: DataTypes.STRING(5000),
+			allowNull: true,
 		},
 		dateCreation: {
 			type: DataTypes.DATE,
+			allowNull: false,
 			defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
 		},
 		lastUpdate: {
 			type: DataTypes.DATE,
+			allowNull: false,
 			defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
 		},
 	}, {
