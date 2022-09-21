@@ -17,10 +17,19 @@ module.exports = {
 				unique: true,
 			},
 		});
-		await queryInterface.addIndex("goals", ["type"]);
+		try {
+			await queryInterface.addIndex("goals", ["type"]);
+		} catch (e) {
+			console.log(e);
+		}
 	},
 
 	down: async(queryInterface, Sequelize) => {
+		try {
+			await queryInterface.removeIndex("goals", ["type"]);
+		} catch (e) {
+			console.log(e);
+		}
 		await queryInterface.dropTable("goals");
 	},
 };
