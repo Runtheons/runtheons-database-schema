@@ -35,15 +35,33 @@ module.exports = {
 				defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
 			},
 		});
-		await queryInterface.addIndex("loginmethods", ["idUser", "email"], {
-			unique: true,
-		});
-		await queryInterface.addIndex("loginmethods", ["idUser"], {
-			unique: false,
-		});
+		try {
+			await queryInterface.addIndex("loginmethods", ["idUser", "email"], {
+				unique: true,
+			});
+		} catch (e) {
+			console.log(e);
+		}
+		try {
+			await queryInterface.addIndex("loginmethods", ["idUser"], {
+				unique: false,
+			});
+		} catch (e) {
+			console.log(e);
+		}
 	},
 
 	down: async(queryInterface, Sequelize) => {
+		try {
+			await queryInterface.dropIndex("loginmethods", ["idUser"]);
+		} catch (e) {
+			console.log(e);
+		}
+		try {
+			await queryInterface.dropIndex("loginmethods", ["idUser", "email"]);
+		} catch (e) {
+			console.log(e);
+		}
 		await queryInterface.dropTable("loginmethods");
 	},
 };
