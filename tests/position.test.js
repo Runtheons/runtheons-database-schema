@@ -34,6 +34,18 @@ describe("POSITION", () => {
 		expect(b.length).toEqual(a.length + 1);
 	});
 
+	test("C - Add a position (only latitude)", async() => {
+		const models = await require("../index")();
+		const { Position } = models;
+
+		let a = await Position.findAll();
+		try {
+			await Position.create({ latitude: 50.0 });
+		} catch (e) {
+			expect(true).toBeTruthy();
+		}
+	});
+
 	// test("R - Read all positions", async() => {
 	// 	const models = await require("../index")();
 	// 	const { Position } = models;

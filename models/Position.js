@@ -33,16 +33,9 @@ module.exports = (sequelize) => {
 			type: DataTypes.FLOAT,
 			allowNull: true,
 			defaultValue: null,
-		},
+		}
 	}, {
 		sequelize,
-		validate: {
-			bothCoordsOrNone() {
-				if ((this.latitude === null) !== (this.longitude === null)) {
-					throw new Error("Either both latitude and longitude, or neither!");
-				}
-			},
-		},
 		createdAt: false,
 		updatedAt: false,
 		tableName: "positions",
