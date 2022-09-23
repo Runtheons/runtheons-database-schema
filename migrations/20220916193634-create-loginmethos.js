@@ -53,12 +53,12 @@ module.exports = {
 
 	down: async(queryInterface, Sequelize) => {
 		try {
-			await queryInterface.dropIndex("loginmethods", ["idUser"]);
+			await queryInterface.removeIndex("loginmethods", ["idUser"]);
 		} catch (e) {
 			console.log(e);
 		}
 		try {
-			await queryInterface.dropIndex("loginmethods", ["idUser", "email"]);
+			await queryInterface.removeIndex("loginmethods", ["idUser", "email"]);
 		} catch (e) {
 			console.log(e);
 		}

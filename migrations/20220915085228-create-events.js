@@ -45,7 +45,7 @@ module.exports = {
 
 	down: async(queryInterface, Sequelize) => {
 		try {
-			await queryInterface.dropIndex("events", ["idUser"]);
+			await queryInterface.removeIndex("events", ["idUser"]);
 		} catch (e) {
 			console.log(e);
 		}
