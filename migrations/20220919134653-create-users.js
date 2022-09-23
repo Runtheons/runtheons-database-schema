@@ -55,6 +55,11 @@ module.exports = {
 				type: Sequelize.STRING(250),
 				allowNull: true,
 			},
+			idPosition: {
+				type: Sequelize.INTEGER,
+				allowNull: true,
+				defaultValue: null,
+			},
 			title: {
 				type: Sequelize.STRING(150),
 				allowNull: true,
