@@ -11,39 +11,56 @@ describe("LOGINMETHOD", () => {
 		);
 	});
 
-	// test("C - Add a sport", async() => {
-	// 	const models = await require("../index")();
-	// 	const { Sport } = models;
+	test("?C - Add a loginmethod", async() => {
+		const models = await require("../index")();
+		const { LoginMethod, Event } = models;
 
-	// 	let a = await Sport.findAll();
+		let a = await LoginMethod.findAll();
 
-	// 	await Sport.create({ description: "ROUJUTSU" });
+		//TODO: Fix idUser with real data
+		await LoginMethod.create({
+			idUser: 2,
+			type: "CLASSIC",
+			email: "gallinar00@gmail.com",
+			password: "1234"
+		});
 
-	// 	let b = await Sport.findAll();
-	// 	expect(b.length).toEqual(a.length + 1);
-	// });
+		let b = await LoginMethod.findAll();
+		expect(b.length).toEqual(a.length + 1);
+	});
 
-	// test("C - Add a sport again", async() => {
-	// 	const models = await require("../index")();
-	// 	const { Sport } = models;
+	test("?C - Add a loginmethod again", async() => {
+		const models = await require("../index")();
+		const { LoginMethod, Event } = models;
 
-	// 	let a = await Sport.findAll();
+		let a = await LoginMethod.findAll();
 
-	// 	await Sport.create({ description: "ROUJUTSU" });
+		//TODO: Fix idUser with real data
+		await LoginMethod.create({
+			idUser: 2,
+			type: "CLASSIC",
+			email: "gallinar00@gmail.com",
+			password: "1234"
+		});
 
-	// 	let b = await Sport.findAll();
-	// 	expect(b.length).toEqual(a.length + 1);
-	// });
+		let b = await LoginMethod.findAll();
+		expect(b.length).toEqual(a.length + 1);
+	});
 
-	// test("C - Add an existing sport", async() => {
-	// 	const models = await require("../index")();
-	// 	const { Sport } = models;
-	// 	try {
-	// 		await Sport.create({ description: "CALCIO" });
-	// 	} catch (e) {
-	// 		expect(true).toBeTruthy();
-	// 	}
-	// });
+	test("?C - Add an existing loginmethod", async() => {
+		const models = await require("../index")();
+		const { LoginMethod } = models;
+		try {
+			await LoginMethod.create({
+				idUser: 1,
+				type: "CLASSIC",
+				email: "gallinar00@gmail.com",
+				password: "1234"
+			});
+		} catch (e) {
+			expect(true).toBeTruthy();
+		}
+	});
 
 	test("R - Read all login methods of an user (by email)", async() => {
 		const models = await require("../index")();
