@@ -47,6 +47,30 @@ describe("LOGINMETHOD", () => {
 		expect(b.length).toEqual(a.length + 1);
 	});
 
+	test("?C - Add a loginmethod (checking event creation)", async() => {
+		const models = await require("../index")();
+		const { LoginMethod, Event } = models;
+
+		let a = await Event.findAll();
+
+		//TODO: Fix idUser with real data
+		let loginMethod = await LoginMethod.create({
+			idUser: 2,
+			type: "CLASSIC",
+			email: "gallinar00@gmail.com",
+			password: "1234"
+		});
+
+		let b = await Event.findAll();
+		expect(b.length).toEqual(a.length + 1);
+
+		let lastEvent = b[b.length - 1];
+
+		expect(lastEvent.idUser).toEqual(2);
+		expect(lastEvent.type).toEqual("LOGINMETHOD_CREATE");
+		expect(lastEvent.value).toEqual(loginMethod.idLoginMethod);
+	});
+
 	test("?C - Add an existing loginmethod", async() => {
 		const models = await require("../index")();
 		const { LoginMethod } = models;
