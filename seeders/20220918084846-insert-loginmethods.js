@@ -7,6 +7,8 @@ module.exports = {
 			type: "CLASSIC",
 			email: "gallinar00@gmail.com",
 			password: "123456",
+			dateCreation: "2022-01-01 00:00:00",
+			lastUpdate: "2022-01-01 00:00:00"
 		}, ]);
 	},
 

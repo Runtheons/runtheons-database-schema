@@ -6,7 +6,7 @@ module.exports = (models) => {
 			idUser: loginMethod.idUser,
 			type: "LOGINMETHOD_CREATE",
 			value: loginMethod.idLoginMethod,
-			new: JSON.stringify(loginMethod),
+			new: JSON.stringify(loginMethod.dataValues),
 		});
 	});
 
@@ -16,7 +16,7 @@ module.exports = (models) => {
 			type: "LOGINMETHOD_DELETE",
 			value: loginMethod.idLoginMethod,
 			old: JSON.stringify(loginMethod._previousDataValues),
-			new: JSON.stringify(loginMethod),
+			new: JSON.stringify(loginMethod.dataValues),
 		});
 	});
 
@@ -24,7 +24,7 @@ module.exports = (models) => {
 		await Event.create({
 			idUser: loginMethod.idUser,
 			type: "LOGINMETHOD_DELETE",
-			old: JSON.stringify(loginMethod),
+			old: JSON.stringify(loginMethod.dataValues),
 		});
 	});
 };

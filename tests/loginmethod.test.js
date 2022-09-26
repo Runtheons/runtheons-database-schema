@@ -13,7 +13,7 @@ describe("LOGINMETHOD", () => {
 
 	test("?C - Add a loginmethod", async() => {
 		const models = await require("../index")();
-		const { LoginMethod, Event } = models;
+		const { LoginMethod } = models;
 
 		let a = await LoginMethod.findAll();
 
@@ -31,7 +31,7 @@ describe("LOGINMETHOD", () => {
 
 	test("?C - Add a loginmethod again", async() => {
 		const models = await require("../index")();
-		const { LoginMethod, Event } = models;
+		const { LoginMethod } = models;
 
 		let a = await LoginMethod.findAll();
 
