@@ -1,5 +1,7 @@
 "use strict";
 
+const { dateFormat } = require("./../utils");
+
 module.exports = {
 	up: async(queryInterface, Sequelize) => {
 		try {
@@ -14,17 +16,19 @@ module.exports = {
 				U.lastUpdate AS dateCreation
 			FROM users AS U`);
 
+			let [result, metadata] = await queryInterface.sequelize.query(`SELECT * FROM loginmethods`);
 
-			await queryInterface.sequelize
-				.query(`INSERT INTO events(idUser, datetime, type, value, new)
+			for (let i = 0; i < result.length; i++) {
+				let loginmethod = result[i];
 
-				SELECT 
-					idUser AS idUser,
-					dateCreation AS datetime,
-					"LOGINMETHOD_CREATE" AS type,
-					idLoginMethod AS value,
-					CONCAT('{"idLoginMethod":',idLoginMethod,', "idUser":',idUser,',"type":"CLASSIC", "email":"',email,'", "password":"',password,'", "dateCreation":"',dateCreation,'", "lastUpdate":"',lastUpdate,'"}') AS new
-				FROM loginmethods`);
+				loginmethod.dateCreation = dateFormat(loginmethod.dateCreation);
+				loginmethod.lastUpdate = dateFormat(loginmethod.lastUpdate)
+
+				await queryInterface.sequelize.query(`INSERT INTO events(idUser, datetime, type, value, new) VALUES (${loginmethod.idUser}, "${loginmethod.dateCreation}", "LOGINMETHOD_CREATE", ${loginmethod.idLoginMethod}, :new)`, {
+					replacements: { new: JSON.stringify(loginmethod) }
+				});
+
+			}
 		} catch (e) {
 			console.log(e);
 		}

@@ -1,5 +1,7 @@
 "use strict";
 
+const { dateFormat } = require("./../utils");
+
 module.exports = {
 	up: async(queryInterface, Sequelize) => {
 		try {
@@ -47,6 +49,20 @@ module.exports = {
 				
 				) AS sub
 				ORDER BY idUser`);
+
+			let [result, metadata] = await queryInterface.sequelize.query(`SELECT * FROM users`);
+
+			for (let i = 0; i < result.length; i++) {
+				let user = result[i];
+
+				user.dateCreation = dateFormat(user.dateCreation);
+				user.lastUpdate = dateFormat(user.lastUpdate)
+
+				await queryInterface.sequelize.query(`INSERT INTO events(idUser, datetime, type, value, new) VALUES (${user.idUser}, "${user.dateCreation}", "USER_CREATE", ${user.idUser}, :new)`, {
+					replacements: { new: JSON.stringify(user) }
+				});
+
+			}
 		} catch (e) {
 			console.log(e);
 		}
