@@ -72,12 +72,10 @@ module.exports = {
 			dateCreation: {
 				type: Sequelize.DATE,
 				allowNull: false,
-				defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
 			},
 			lastUpdate: {
 				type: Sequelize.DATE,
 				allowNull: false,
-				defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
 			},
 		});
 	},

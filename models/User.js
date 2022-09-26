@@ -69,7 +69,6 @@ module.exports = (sequelize) => {
 		dateCreation: {
 			type: DataTypes.DATE,
 			allowNull: false,
-			defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
 			get() {
 				const rawValue = this.getDataValue('dateCreation');
 				return rawValue ? dateFormat(rawValue) : null;
@@ -78,7 +77,6 @@ module.exports = (sequelize) => {
 		lastUpdate: {
 			type: DataTypes.DATE,
 			allowNull: false,
-			defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
 			get() {
 				const rawValue = this.getDataValue('lastUpdate');
 				return rawValue ? dateFormat(rawValue) : null;

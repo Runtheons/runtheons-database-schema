@@ -17,7 +17,6 @@ module.exports = (sequelize) => {
 		datetime: {
 			type: DataTypes.DATE,
 			allowNull: false,
-			defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
 			get() {
 				const rawValue = this.getDataValue('datetime');
 				return rawValue ? dateFormat(rawValue) : null;
