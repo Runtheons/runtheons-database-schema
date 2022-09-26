@@ -1,4 +1,5 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
+const { dateFormat } = require("./../utils");
 
 module.exports = (sequelize) => {
 	class LoginMethod extends Model {}
@@ -32,11 +33,19 @@ module.exports = (sequelize) => {
 			type: DataTypes.DATE,
 			allowNull: false,
 			defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+			get() {
+				const rawValue = this.getDataValue('dateCreation');
+				return rawValue ? dateFormat(rawValue) : null;
+			}
 		},
 		lastUpdate: {
 			type: DataTypes.DATE,
 			allowNull: false,
 			defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+			get() {
+				const rawValue = this.getDataValue('lastUpdate');
+				return rawValue ? dateFormat(rawValue) : null;
+			}
 		},
 	}, {
 		sequelize,

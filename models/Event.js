@@ -1,4 +1,6 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
+const { dateFormat } = require("./../utils");
+
 
 module.exports = (sequelize) => {
 	class Event extends Model {}
@@ -16,6 +18,10 @@ module.exports = (sequelize) => {
 			type: DataTypes.DATE,
 			allowNull: false,
 			defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+			get() {
+				const rawValue = this.getDataValue('datetime');
+				return rawValue ? dateFormat(rawValue) : null;
+			}
 		},
 		type: {
 			type: DataTypes.ENUM(["USER_CREATION"]),
