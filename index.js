@@ -7,11 +7,7 @@ const loadModels = (sequelize) => {
 	const Speciality = require("./models/Speciality")(sequelize);
 	const LoginMethod = require("./models/LoginMethod")(sequelize);
 	const Position = require("./models/Position")(sequelize);
-	// const Log = {};
-	// const User = require("./models/User")(sequelize);
-	// const LoginMethods = require("./models/LoginMethod")(sequelize);
-	// const User = require("./models/User")(sequelize);
-	// const User = require("./models/User")(sequelize);
+	const User = require("./models/User")(sequelize);
 
 	return {
 		Event,
@@ -20,6 +16,7 @@ const loadModels = (sequelize) => {
 		Speciality,
 		LoginMethod,
 		Position,
+		User
 	};
 };
 
