@@ -21,7 +21,8 @@ const loadModels = (sequelize) => {
 };
 
 const loadRelationships = (models) => {
-	// require("./relationships/User")(models);
+	require("./relationships/User")(models);
+	require("./relationships/Position")(models);
 };
 
 const loadHooks = (models) => {

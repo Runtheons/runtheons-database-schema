@@ -1,5 +1,11 @@
 module.exports = (models) => {
-	const { User, Sport } = models;
+	const { User, Position } = models;
+
+	User.position = User.hasOne(Position, {
+		foreignKey: 'idPosition',
+		as: 'position',
+		timestamps: false
+	})
 
 	// User.sports = User.belongsToMany(Sport, {
 	// 	through: 'userssports',
@@ -8,4 +14,10 @@ module.exports = (models) => {
 	// 	otherKey: 'idSport',
 	// 	timestamps: false
 	// });
+
+	User.addScope("default", {
+		include: [{
+			association: User.position,
+		}]
+	});
 };
