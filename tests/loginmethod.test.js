@@ -6,9 +6,7 @@ describe("LOGINMETHOD", () => {
 	});
 
 	afterEach(async() => {
-		await exec(
-			"sequelize db:migrate:undo:all --config ./tests/config.json --env db"
-		);
+		await exec("sequelize db:migrate:undo:all --config ./tests/config.json --env db");
 	});
 
 	test("C - Add a loginmethod", async() => {
@@ -45,7 +43,7 @@ describe("LOGINMETHOD", () => {
 		expect(b.length).toEqual(a.length + 1);
 	});
 
-	test("C - Add a loginmethod (checking event creation)", async() => {
+	test("C - Add a loginmethod (checking event)", async() => {
 		const models = await require("../index")();
 		const { LoginMethod, Event } = models;
 
@@ -83,7 +81,101 @@ describe("LOGINMETHOD", () => {
 		}
 	});
 
-	test("R - Read all login methods of an user (by email)", async() => {
+	test("U - Update a loginmethod password", async() => {
+		const models = await require("../index")();
+		const { LoginMethod } = models;
+
+		let loginMethod = await LoginMethod.findOne({
+			where: {
+				idUser: 1,
+				email: "gallinar00@gmail.com"
+			}
+		});
+
+		loginMethod.password = "5678";
+
+		await loginMethod.save();
+
+		let b = await LoginMethod.findOne({
+			where: {
+				idUser: 1,
+				email: "gallinar00@gmail.com"
+			}
+		});
+		expect(b.dataValues).toEqual(loginMethod.dataValues);
+	});
+
+	test("U - Update a loginmethod password (again)", async() => {
+		const models = await require("../index")();
+		const { LoginMethod } = models;
+
+		let loginMethod = await LoginMethod.findOne({
+			where: {
+				idUser: 1,
+				email: "gallinar00@gmail.com"
+			}
+		});
+
+		loginMethod.password = "5678";
+
+		await loginMethod.save();
+
+		let b = await LoginMethod.findOne({
+			where: {
+				idUser: 1,
+				email: "gallinar00@gmail.com"
+			}
+		});
+		expect(b.dataValues).toEqual(loginMethod.dataValues);
+	});
+
+	test("U - Update a loginmethod password (checking event)", async() => {
+		const models = await require("../index")();
+		const { LoginMethod, Event } = models;
+
+		let a = await Event.findAll();
+
+		let loginMethod = await LoginMethod.findOne({
+			where: {
+				idUser: 1,
+				email: "gallinar00@gmail.com"
+			}
+		});
+
+		loginMethod.password = "5678";
+
+		await loginMethod.save();
+
+		let b = await Event.findAll();
+		expect(b.length).toEqual(a.length + 1);
+
+		let lastEvent = b[b.length - 1];
+
+		expect(lastEvent.idUser).toEqual(1);
+		expect(lastEvent.type).toEqual("LOGINMETHOD_UPDATE");
+		expect(lastEvent.value).toEqual(loginMethod.idLoginMethod);
+	});
+
+	test("U - Update an unexisting loginmethod", async() => {
+		const models = await require("../index")();
+		const { LoginMethod } = models;
+		try {
+			let loginMethod = await LoginMethod.findOne({
+				where: {
+					idUser: 2,
+					email: "gallinar00@gmail.com"
+				}
+			});
+
+			loginMethod.password = "5678";
+
+			await loginMethod.save();
+		} catch (e) {
+			expect(true).toBeTruthy();
+		}
+	});
+
+	test("R - Get all login methods of an user (by email)", async() => {
 		const models = await require("../index")();
 		const { LoginMethod } = models;
 
@@ -103,4 +195,91 @@ describe("LOGINMETHOD", () => {
 
 		expect(a.length).toEqual(1);
 	});
+
+	test("D - Delete a loginmethod", async() => {
+		const models = await require("../index")();
+		const { LoginMethod } = models;
+
+		let loginMethod = await LoginMethod.findOne({
+			where: {
+				idUser: 1,
+				email: "gallinar00@gmail.com"
+			}
+		});
+
+		await loginMethod.destroy();
+
+		let b = await LoginMethod.findOne({
+			where: {
+				idUser: 1,
+				email: "gallinar00@gmail.com"
+			}
+		});
+		expect(b).toEqual(null);
+	});
+
+	test("D - Delete a loginmethod (again)", async() => {
+		const models = await require("../index")();
+		const { LoginMethod } = models;
+
+		let loginMethod = await LoginMethod.findOne({
+			where: {
+				idUser: 1,
+				email: "gallinar00@gmail.com"
+			}
+		});
+
+		await loginMethod.destroy();
+
+		let b = await LoginMethod.findOne({
+			where: {
+				idUser: 1,
+				email: "gallinar00@gmail.com"
+			}
+		});
+		expect(b).toEqual(null);
+	});
+
+	test("D - Delete a loginmethod (checking event)", async() => {
+		const models = await require("../index")();
+		const { LoginMethod, Event } = models;
+
+		let a = await Event.findAll();
+
+		let loginMethod = await LoginMethod.findOne({
+			where: {
+				idUser: 1,
+				email: "gallinar00@gmail.com"
+			}
+		});
+
+		await loginMethod.destroy();
+
+		let b = await Event.findAll();
+		expect(b.length).toEqual(a.length + 1);
+
+		let lastEvent = b[b.length - 1];
+
+		expect(lastEvent.idUser).toEqual(1);
+		expect(lastEvent.type).toEqual("LOGINMETHOD_DELETE");
+		expect(lastEvent.value).toEqual(loginMethod.idLoginMethod);
+	});
+
+	test("D - Delete an unexisting loginmethod", async() => {
+		const models = await require("../index")();
+		const { LoginMethod } = models;
+		try {
+			let loginMethod = await LoginMethod.findOne({
+				where: {
+					idUser: 2,
+					email: "gallinar00@gmail.com"
+				}
+			});
+
+			await loginMethod.destroy();
+		} catch (e) {
+			expect(true).toBeTruthy();
+		}
+	});
+
 });

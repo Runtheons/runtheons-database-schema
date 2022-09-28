@@ -13,7 +13,7 @@ module.exports = (models) => {
 	LoginMethod.addHook("afterUpdate", async(loginMethod, options) => {
 		await Event.create({
 			idUser: loginMethod.idUser,
-			type: "LOGINMETHOD_DELETE",
+			type: "LOGINMETHOD_UPDATE",
 			value: loginMethod.idLoginMethod,
 			old: JSON.stringify(loginMethod._previousDataValues),
 			new: JSON.stringify(loginMethod.dataValues),
@@ -24,7 +24,8 @@ module.exports = (models) => {
 		await Event.create({
 			idUser: loginMethod.idUser,
 			type: "LOGINMETHOD_DELETE",
-			old: JSON.stringify(loginMethod.dataValues),
+			value: loginMethod._previousDataValues.idLoginMethod,
+			old: JSON.stringify(loginMethod._previousDataValues),
 		});
 	});
 };

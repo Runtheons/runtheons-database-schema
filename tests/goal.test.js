@@ -5,9 +5,7 @@ describe("GOAL", () => {
 	});
 
 	afterEach(async() => {
-		await exec(
-			"sequelize db:migrate:undo:all --config ./tests/config.json --env db"
-		);
+		await exec("sequelize db:migrate:undo:all --config ./tests/config.json --env db");
 	});
 
 	test("C - Add an athlete goal", async() => {
