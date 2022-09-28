@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
 			allowNull: false,
 			get() {
 				const rawValue = this.getDataValue('datetime');
-				return rawValue ? dateFormat(rawValue) : null;
+				return dateFormat(rawValue);
 			}
 		},
 		type: {

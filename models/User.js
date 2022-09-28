@@ -71,7 +71,7 @@ module.exports = (sequelize) => {
 			allowNull: false,
 			get() {
 				const rawValue = this.getDataValue('dateCreation');
-				return rawValue ? dateFormat(rawValue) : null;
+				return dateFormat(rawValue);
 			}
 		},
 		lastUpdate: {
@@ -79,7 +79,7 @@ module.exports = (sequelize) => {
 			allowNull: false,
 			get() {
 				const rawValue = this.getDataValue('lastUpdate');
-				return rawValue ? dateFormat(rawValue) : null;
+				return ateFormat(rawValue);
 			}
 		},
 	}, {

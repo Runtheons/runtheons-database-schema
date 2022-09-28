@@ -81,6 +81,37 @@ describe("LOGINMETHOD", () => {
 		}
 	});
 
+	test("R - Get all login methods of an user (by email)", async() => {
+		const models = await require("../index")();
+		const { LoginMethod } = models;
+
+		let a = await LoginMethod.findAll({
+			where: { email: "gallinar00@gmail.com" },
+		});
+
+		expect(a.length).toEqual(1);
+
+		let b = a[0];
+
+		expect(b.idUser).toEqual(1);
+		expect(b.type).toEqual("CLASSIC");
+		expect(b.email).toEqual("gallinar00@gmail.com");
+		expect(b.password).toEqual("123456", );
+		expect(b.dateCreation).toEqual("2022-01-01 00:00:00");
+		expect(b.lastUpdate).toEqual("2022-01-01 00:00:00");
+	});
+
+	test("R - Search a login methods of an user by email and type", async() => {
+		const models = await require("../index")();
+		const { LoginMethod } = models;
+
+		let a = await LoginMethod.findAll({
+			where: { email: "gallinar00@gmail.com", type: "CLASSIC" },
+		});
+
+		expect(a.length).toEqual(1);
+	});
+
 	test("U - Update a loginmethod password", async() => {
 		const models = await require("../index")();
 		const { LoginMethod } = models;
@@ -173,27 +204,6 @@ describe("LOGINMETHOD", () => {
 		} catch (e) {
 			expect(true).toBeTruthy();
 		}
-	});
-
-	test("R - Get all login methods of an user (by email)", async() => {
-		const models = await require("../index")();
-		const { LoginMethod } = models;
-
-		let a = await LoginMethod.findAll({
-			where: { email: "gallinar00@gmail.com" },
-		});
-
-		expect(a.length).toEqual(1);
-	});
-	test("R - Search a login methods of an user by email and type", async() => {
-		const models = await require("../index")();
-		const { LoginMethod } = models;
-
-		let a = await LoginMethod.findAll({
-			where: { email: "gallinar00@gmail.com", type: "CLASSIC" },
-		});
-
-		expect(a.length).toEqual(1);
 	});
 
 	test("D - Delete a loginmethod", async() => {
