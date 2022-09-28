@@ -52,7 +52,7 @@ describe("LOGINMETHOD", () => {
 		let a = await Event.findAll();
 
 		let loginMethod = await LoginMethod.create({
-			idUser: 1,
+			idUser: 2,
 			type: "CLASSIC",
 			email: "gallinar00@gmail.com",
 			password: "1234"
