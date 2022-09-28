@@ -11,13 +11,12 @@ describe("LOGINMETHOD", () => {
 		);
 	});
 
-	test("?C - Add a loginmethod", async() => {
+	test("C - Add a loginmethod", async() => {
 		const models = await require("../index")();
 		const { LoginMethod } = models;
 
 		let a = await LoginMethod.findAll();
 
-		//TODO: Fix idUser with real data
 		await LoginMethod.create({
 			idUser: 2,
 			type: "CLASSIC",
@@ -29,13 +28,12 @@ describe("LOGINMETHOD", () => {
 		expect(b.length).toEqual(a.length + 1);
 	});
 
-	test("?C - Add a loginmethod again", async() => {
+	test("C - Add a loginmethod again", async() => {
 		const models = await require("../index")();
 		const { LoginMethod } = models;
 
 		let a = await LoginMethod.findAll();
 
-		//TODO: Fix idUser with real data
 		await LoginMethod.create({
 			idUser: 2,
 			type: "CLASSIC",
@@ -47,15 +45,14 @@ describe("LOGINMETHOD", () => {
 		expect(b.length).toEqual(a.length + 1);
 	});
 
-	test("?C - Add a loginmethod (checking event creation)", async() => {
+	test("C - Add a loginmethod (checking event creation)", async() => {
 		const models = await require("../index")();
 		const { LoginMethod, Event } = models;
 
 		let a = await Event.findAll();
 
-		//TODO: Fix idUser with real data
 		let loginMethod = await LoginMethod.create({
-			idUser: 2,
+			idUser: 1,
 			type: "CLASSIC",
 			email: "gallinar00@gmail.com",
 			password: "1234"
@@ -71,7 +68,7 @@ describe("LOGINMETHOD", () => {
 		expect(lastEvent.value).toEqual(loginMethod.idLoginMethod);
 	});
 
-	test("?C - Add an existing loginmethod", async() => {
+	test("C - Add an existing loginmethod", async() => {
 		const models = await require("../index")();
 		const { LoginMethod } = models;
 		try {
