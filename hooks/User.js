@@ -94,13 +94,15 @@ module.exports = (models) => {
 			});
 		}
 		if (user.status != user._previousDataValues.status) {
-			if (user.status == "DELETED") {
-				Event.create({
-					idUser: user.idUser,
-					type: "USER_DELETE",
-					value: user.idUser,
-					old: JSON.stringify(user._previousDataValues),
-				});
+			switch (user.status) {
+				case "DELETED":
+					Event.create({
+						idUser: user.idUser,
+						type: "USER_DELETE",
+						value: user.idUser,
+						old: JSON.stringify(user._previousDataValues),
+					});
+					break;
 			}
 		}
 	});
