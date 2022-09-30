@@ -391,70 +391,66 @@ describe("USER", () => {
 		expect(lastEvent.value).toEqual(user.idUser);
 	});
 
-	/*
-		test("U - Add an user sports (checking event)", async() => {
-			const models = await require("../index")();
-			const { User, Sport, Event } = models;
+	test("U - Add an user sports (checking event)", async() => {
+		const models = await require("../index")();
+		const { User, Sport, Event } = models;
 
-			let a = await Event.findAll();
+		let a = await Event.findAll();
 
-			let user = await User.findOne({
-				where: {
-					idUser: 1
-				}
-			});
-
-			let football = await Sport.findOne({ where: { description: "CALCIO" } });
-
-			let sports = user.sports.length;
-
-			await user.addSport(football);
-			await user.reload();
-
-			let b = await Event.findAll();
-
-			let lastEvent = b[b.length - 1];
-
-			expect(user.sports.length).toEqual(sports + 1);
-			
-					expect(lastEvent.idUser).toEqual(1);
-					expect(lastEvent.type).toEqual("USER_UPDATE_SPORT");
-					expect(lastEvent.value).toEqual(user.idUser);
-			
+		let user = await User.findOne({
+			where: {
+				idUser: 1
+			}
 		});
 
+		let football = await Sport.findOne({ where: { description: "CALCIO" } });
 
+		let sports = user.sports.length;
 
+		await user.addSport(football);
+		await user.reload();
 
-		test("U - Set an user sports (checking event)", async() => {
-			const models = await require("../index")();
-			const { User, Sport, Event } = models;
+		let b = await Event.findAll();
 
-			let a = await Event.findAll();
+		let lastEvent = b[b.length - 1];
 
-			let user = await User.findOne({
-				where: {
-					idUser: 1
-				}
-			});
+		expect(user.sports.length).toEqual(sports + 1);
 
-			let football = await Sport.findOne({ where: { description: "CALCIO" } });
+		expect(lastEvent.idUser).toEqual(1);
+		expect(lastEvent.type).toEqual("USER_UPDATE_SPORTS");
+		expect(lastEvent.value).toEqual(user.idUser);
 
-			await user.setSports([football]);
-			await user.reload();
+	});
 
-			let b = await Event.findAll();
+	test("U - Set an user sports (checking event)", async() => {
+		const models = await require("../index")();
+		const { User, Sport, Event } = models;
 
-			let lastEvent = b[b.length - 1];
+		let a = await Event.findAll();
 
-			expect(user.sports.length).toEqual(1);
-			
-			expect(lastEvent.idUser).toEqual(1);
-			expect(lastEvent.type).toEqual("USER_UPDATE_POSITION");
-			expect(lastEvent.value).toEqual(user.idUser);
-			
+		let user = await User.findOne({
+			where: {
+				idUser: 1
+			}
 		});
-	*/
+
+		let football = await Sport.findOne({ where: { description: "CALCIO" } });
+
+		await user.setSports([football])
+		await user.reload();
+
+		let b = await Event.findAll();
+
+		let lastEvent = b[b.length - 1];
+
+		expect(user.sports.length).toEqual(1);
+
+		expect(lastEvent.idUser).toEqual(1);
+		expect(lastEvent.type).toEqual("USER_UPDATE_SPORTS");
+		expect(lastEvent.value).toEqual(user.idUser);
+
+	});
+
 	test("U - Update an unexisting user", async() => {
 		const models = await require("../index")();
 		const { User } = models;
@@ -471,6 +467,32 @@ describe("USER", () => {
 		} catch (e) {
 			expect(true).toBeTruthy();
 		}
+	});
+
+	test("U - Mark an user as deleted (checking event)", async() => {
+		const models = await require("../index")();
+		const { User, Event } = models;
+
+		let a = await Event.findAll();
+
+		let user = await User.findOne({
+			where: {
+				idUser: 1
+			}
+		});
+
+		user.status = "DELETED";
+
+		await user.save();
+
+		let b = await Event.findAll();
+		expect(b.length).toEqual(a.length + 1);
+
+		let lastEvent = b[b.length - 1];
+
+		expect(lastEvent.idUser).toEqual(1);
+		expect(lastEvent.type).toEqual("USER_DELETE");
+		expect(lastEvent.value).toEqual(user.idUser);
 	});
 
 });

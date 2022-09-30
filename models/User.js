@@ -2,7 +2,48 @@ const { Sequelize, DataTypes, Model } = require("sequelize");
 const { dateFormat } = require("./../utils");
 
 module.exports = (sequelize) => {
-	class User extends Model {}
+	class User extends Model {
+		async addSport(sport) {
+			let old = this.dataValues;
+			let r = await this._options.include
+				.find(ass => ass.association.combinedName == "userssports")
+				.association
+				.add(this, sport);
+
+			await this.reload();
+
+			await this.sequelize.models.Event.create({
+				idUser: this.idUser,
+				type: "USER_UPDATE_SPORTS",
+				value: this.idUser,
+				old: JSON.stringify(old),
+				new: JSON.stringify(this.dataValues),
+			});
+
+			return r;
+		}
+
+		async setSports(sports) {
+			let old = this.dataValues;
+			let r = await this._options.include
+				.find(ass => ass.association.combinedName == "userssports")
+				.association
+				.set(this, sports);
+
+			await this.reload();
+
+			await this.sequelize.models.Event.create({
+				idUser: this.idUser,
+				type: "USER_UPDATE_SPORTS",
+				value: this.idUser,
+				old: JSON.stringify(old),
+				new: JSON.stringify(this.dataValues),
+			});
+
+			return r;
+		}
+
+	}
 
 	User.init({
 		idUser: {
