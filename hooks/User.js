@@ -1,56 +1,66 @@
 module.exports = (models) => {
-	const { User, Event } = models;
+	const { User, Event, Position } = models;
 
 	User.addHook("afterCreate", (user, options) => {
 		Event.create({
 			idUser: user.idUser,
-			idEvent: "USER_CREATE",
+			type: "USER_CREATE",
 			value: user.idUser,
-			new: JSON.stringify(user),
+			new: JSON.stringify(user.dataValues),
 		});
 	});
 
-	User.addHook("afterUpdate", (user, options) => {
+	User.addHook("afterUpdate", async(user, options) => {
 		if (user.name != user._previousDataValues.name) {
 			Event.create({
 				idUser: user.idUser,
-				idEvent: "USER_UPDATE_NAME",
+				type: "USER_UPDATE_NAME",
 				value: user.idUser,
 				old: JSON.stringify(user._previousDataValues),
-				new: JSON.stringify(user),
+				new: JSON.stringify(user.dataValues),
 			});
 		}
 		if (user.surname != user._previousDataValues.surname) {
 			Event.create({
 				idUser: user.idUser,
-				idEvent: "USER_UPDATE_SURNAME",
+				type: "USER_UPDATE_SURNAME",
 				value: user.idUser,
 				old: JSON.stringify(user._previousDataValues),
-				new: JSON.stringify(user),
+				new: JSON.stringify(user.dataValues),
 			});
 		}
 		if (user.dateBirth != user._previousDataValues.dateBirth) {
 			Event.create({
 				idUser: user.idUser,
-				idEvent: "USER_UPDATE_DATEBIRTH",
+				type: "USER_UPDATE_DATEBIRTH",
 				value: user.idUser,
 				old: JSON.stringify(user._previousDataValues),
-				new: JSON.stringify(user),
+				new: JSON.stringify(user.dataValues),
 			});
 		}
 		if (user.sex != user._previousDataValues.sex) {
 			Event.create({
 				idUser: user.idUser,
-				idEvent: "USER_UPDATE_SEX",
+				type: "USER_UPDATE_SEX",
 				value: user.idUser,
 				old: JSON.stringify(user._previousDataValues),
-				new: JSON.stringify(user),
+				new: JSON.stringify(user.dataValues),
+			});
+		}
+		if (user.idPosition != user._previousDataValues.idPosition) {
+			user.dataValues.position = await Position.findAll({ where: { idPosition: user.dataValues.idPosition } });
+			Event.create({
+				idUser: user.idUser,
+				type: "USER_UPDATE_POSITION",
+				value: user.idUser,
+				old: JSON.stringify(user._previousDataValues),
+				new: JSON.stringify(user.dataValues),
 			});
 		}
 		if (user.photo != user._previousDataValues.photo) {
 			Event.create({
 				idUser: user.idUser,
-				idEvent: "USER_UPDATE_PHOTO",
+				type: "USER_UPDATE_PHOTO",
 				value: user.idUser,
 				old: JSON.stringify(user._previousDataValues),
 				new: JSON.stringify(user),
@@ -59,7 +69,7 @@ module.exports = (models) => {
 		if (user.cover != user._previousDataValues.cover) {
 			Event.create({
 				idUser: user.idUser,
-				idEvent: "USER_UPDATE_COVER",
+				type: "USER_UPDATE_COVER",
 				value: user.idUser,
 				old: JSON.stringify(user._previousDataValues),
 				new: JSON.stringify(user),
@@ -68,7 +78,7 @@ module.exports = (models) => {
 		if (user.title != user._previousDataValues.title) {
 			Event.create({
 				idUser: user.idUser,
-				idEvent: "USER_UPDATE_TITLE",
+				type: "USER_UPDATE_TITLE",
 				value: user.idUser,
 				old: JSON.stringify(user._previousDataValues),
 				new: JSON.stringify(user),
@@ -77,7 +87,7 @@ module.exports = (models) => {
 		if (user.biography != user._previousDataValues.biography) {
 			Event.create({
 				idUser: user.idUser,
-				idEvent: "USER_UPDATE_BIOGRAPHY",
+				type: "USER_UPDATE_BIOGRAPHY",
 				value: user.idUser,
 				old: JSON.stringify(user._previousDataValues),
 				new: JSON.stringify(user),
@@ -87,7 +97,7 @@ module.exports = (models) => {
 			if (user.status == "DELETED") {
 				Event.create({
 					idUser: user.idUser,
-					idEvent: "USER_DELETE",
+					type: "USER_DELETE",
 					value: user.idUser,
 					old: JSON.stringify(user._previousDataValues),
 				});

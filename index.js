@@ -27,6 +27,7 @@ const loadRelationships = (models) => {
 
 const loadHooks = (models) => {
 	require("./hooks/LoginMethod")(models);
+	require("./hooks/User")(models);
 };
 
 let defaultConfig = require("./tests/config.json");

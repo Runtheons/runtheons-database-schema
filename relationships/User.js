@@ -1,7 +1,7 @@
 module.exports = (models) => {
 	const { User, Sport, Position } = models;
 
-	User.position = User.hasOne(Position, {
+	User.position = User.belongsTo(Position, {
 		foreignKey: 'idPosition',
 		as: 'position',
 		timestamps: false
