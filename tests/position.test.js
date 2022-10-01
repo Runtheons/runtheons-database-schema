@@ -44,22 +44,31 @@ describe("POSITION", () => {
 		}
 	});
 
-	// test("R - Read all positions", async() => {
-	// 	const models = await require("../index")();
-	// 	const { Position } = models;
+	test("U - Add an user position (checking event)", async() => {
+		const models = await require("../index")();
+		const { User, Position, Event } = models;
 
-	// 	let a = await Position.findAll();
+		let ap = await Position.findAll();
+		let ae = await Event.findAll();
 
-	// 	expect(a.length).toEqual(16);
-	// });
+		let user = await User.findOne({
+			where: {
+				idUser: 1
+			}
+		});
 
-	// test("R - Search 'DIETISTA'", async() => {
-	// 	const models = await require("../index")();
-	// 	const { Position } = models;
+		await user.createPosition({ latitude: 45, longitude: 10 });
 
-	// 	let a = await Position.findAll({ where: { latitude: {
-	// 				[Op.gt]: 1 } } });
+		let bp = await Position.findAll();
+		let be = await Event.findAll();
+		expect(bp.length).toEqual(ap.length + 1);
+		expect(be.length).toEqual(ae.length + 1);
 
-	// 	expect(a.length).toEqual(1);
-	// });
+		let lastEvent = be[be.length - 1];
+
+		expect(lastEvent.idUser).toEqual(1);
+		expect(lastEvent.type).toEqual("USER_UPDATE_POSITION");
+		expect(lastEvent.value).toEqual(user.idUser);
+	});
+
 });
