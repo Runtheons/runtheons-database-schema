@@ -23,6 +23,7 @@ const loadModels = (sequelize) => {
 const loadRelationships = (models) => {
 	require("./relationships/User")(models);
 	require("./relationships/Sport")(models);
+	require("./relationships/Goal")(models);
 	require("./relationships/Speciality")(models);
 	require("./relationships/Position")(models);
 };

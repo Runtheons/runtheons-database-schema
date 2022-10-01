@@ -2,6 +2,7 @@ const exec = require("./exec");
 describe("GOAL", () => {
 	beforeEach(async() => {
 		await exec("sequelize db:migrate --config ./tests/config.json --env db");
+		await exec("sequelize db:seed:all --config ./tests/config.json --env db");
 	});
 
 	afterEach(async() => {
@@ -77,4 +78,35 @@ describe("GOAL", () => {
 		expect(a.length).toEqual(1);
 		expect(a[0].type).toEqual("ATHLETE");
 	});
+
+	test("U - Set an user goal (checking event)", async() => {
+		const models = await require("../index")();
+		const { User, Goal, Event } = models;
+
+		let a = await Event.findAll();
+
+		let user = await User.findOne({
+			where: {
+				idUser: 1
+			}
+		});
+
+		let goal = await Goal.findOne({ where: { description: "TROVARE NUOVI CLIENTI" }, });
+
+		await user.setGoals([goal])
+		await user.reload();
+
+		let b = await Event.findAll();
+		expect(b.length).toEqual(a.length + 1);
+
+		let lastEvent = b[b.length - 1];
+
+		expect(user.goals.length).toEqual(1);
+
+		expect(lastEvent.idUser).toEqual(1);
+		expect(lastEvent.type).toEqual("USER_UPDATE_GOALS");
+		expect(lastEvent.value).toEqual(user.idUser);
+
+	});
+
 });

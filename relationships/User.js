@@ -1,5 +1,5 @@
 module.exports = (models) => {
-	const { User, Sport, Speciality, Position } = models;
+	const { User, Sport, Goal, Speciality, Position } = models;
 
 	User.position = User.belongsTo(Position, {
 		foreignKey: 'idPosition',
@@ -15,13 +15,13 @@ module.exports = (models) => {
 		timestamps: false
 	});
 
-	// User.goals = User.belongsToMany(Goals, {
-	// 	through: 'usersgoals',
-	// 	as: 'goals',
-	// 	foreignKey: 'idUser',
-	// 	otherKey: 'idGoal',
-	// 	timestamps: false
-	// });
+	User.goals = User.belongsToMany(Goal, {
+		through: 'usersgoals',
+		as: 'goals',
+		foreignKey: 'idUser',
+		otherKey: 'idGoal',
+		timestamps: false
+	});
 
 	User.specialities = User.belongsToMany(Speciality, {
 		through: 'usersspecialities',
@@ -37,6 +37,8 @@ module.exports = (models) => {
 			association: User.position,
 		}, {
 			association: User.sports,
+		}, {
+			association: User.goals,
 		}, {
 			association: User.specialities,
 		}]

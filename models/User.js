@@ -24,6 +24,26 @@ module.exports = (sequelize) => {
 			return r;
 		}
 
+		async setGoals(goals) {
+			let old = this.dataValues;
+			let r = await this._options.include
+				.find(ass => ass.association.combinedName == "usersgoals")
+				.association
+				.set(this, goals);
+
+			await this.reload();
+
+			this.sequelize.models.Event.create({
+				idUser: this.idUser,
+				type: "USER_UPDATE_GOALS",
+				value: this.idUser,
+				old: JSON.stringify(old),
+				new: JSON.stringify(this.dataValues),
+			});
+
+			return r;
+		}
+
 		async setSpecialities(specialities) {
 			let old = this.dataValues;
 			let r = await this._options.include
