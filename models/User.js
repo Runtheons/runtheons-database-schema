@@ -3,25 +3,6 @@ const { dateFormat } = require("./../utils");
 
 module.exports = (sequelize) => {
 	class User extends Model {
-		async addSport(sport) {
-			let old = this.dataValues;
-			let r = await this._options.include
-				.find(ass => ass.association.combinedName == "userssports")
-				.association
-				.add(this, sport);
-
-			await this.reload();
-
-			await this.sequelize.models.Event.create({
-				idUser: this.idUser,
-				type: "USER_UPDATE_SPORTS",
-				value: this.idUser,
-				old: JSON.stringify(old),
-				new: JSON.stringify(this.dataValues),
-			});
-
-			return r;
-		}
 
 		async setSports(sports) {
 			let old = this.dataValues;
@@ -32,9 +13,29 @@ module.exports = (sequelize) => {
 
 			await this.reload();
 
-			await this.sequelize.models.Event.create({
+			this.sequelize.models.Event.create({
 				idUser: this.idUser,
 				type: "USER_UPDATE_SPORTS",
+				value: this.idUser,
+				old: JSON.stringify(old),
+				new: JSON.stringify(this.dataValues),
+			});
+
+			return r;
+		}
+
+		async setSpecialities(specialities) {
+			let old = this.dataValues;
+			let r = await this._options.include
+				.find(ass => ass.association.combinedName == "usersspecialities")
+				.association
+				.set(this, specialities);
+
+			await this.reload();
+
+			this.sequelize.models.Event.create({
+				idUser: this.idUser,
+				type: "USER_UPDATE_SPECIALITIES",
 				value: this.idUser,
 				old: JSON.stringify(old),
 				new: JSON.stringify(this.dataValues),

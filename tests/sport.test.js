@@ -61,38 +61,6 @@ describe("SPORT", () => {
 		expect(a.length).toEqual(1);
 	});
 
-	test("U - Add an user sports (checking event)", async() => {
-		const models = await require("../index")();
-		const { User, Sport, Event } = models;
-
-		let a = await Event.findAll();
-
-		let user = await User.findOne({
-			where: {
-				idUser: 1
-			}
-		});
-
-		let football = await Sport.findOne({ where: { description: "CALCIO" } });
-
-		let sports = user.sports.length;
-
-		await user.addSport(football);
-		await user.reload();
-
-		let b = await Event.findAll();
-
-		let lastEvent = b[b.length - 1];
-		expect(b.length).toEqual(a.length + 1);
-
-		expect(user.sports.length).toEqual(sports + 1);
-
-		expect(lastEvent.idUser).toEqual(1);
-		expect(lastEvent.type).toEqual("USER_UPDATE_SPORTS");
-		expect(lastEvent.value).toEqual(user.idUser);
-
-	});
-
 	test("U - Set an user sports (checking event)", async() => {
 		const models = await require("../index")();
 		const { User, Sport, Event } = models;
