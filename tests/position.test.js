@@ -2,6 +2,7 @@ const exec = require("./exec");
 describe("POSITION", () => {
 	beforeEach(async() => {
 		await exec("sequelize db:migrate --config ./tests/config.json --env db");
+		await exec("sequelize db:seed:all --config ./tests/config.json --env db");
 	});
 
 	afterEach(async() => {
