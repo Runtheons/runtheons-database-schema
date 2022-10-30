@@ -115,6 +115,10 @@ module.exports = (sequelize) => {
 			type: DataTypes.STRING(250),
 			allowNull: true,
 		},
+		phone: {
+			type: DataTypes.STRING(25),
+			allowNull: true,
+		},
 		cover: {
 			type: DataTypes.STRING(250),
 			allowNull: true,
@@ -126,6 +130,10 @@ module.exports = (sequelize) => {
 		},
 		biography: {
 			type: DataTypes.STRING(5000),
+			allowNull: true,
+		},
+		idCustomer: {
+			type: DataTypes.STRING(150),
 			allowNull: true,
 		},
 		dateCreation: {

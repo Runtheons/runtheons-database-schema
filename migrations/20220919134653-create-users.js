@@ -55,6 +55,10 @@ module.exports = {
 				type: Sequelize.STRING(250),
 				allowNull: true,
 			},
+			phone: {
+				type: Sequelize.STRING(25),
+				allowNull: true,
+			},
 			idPosition: {
 				type: Sequelize.INTEGER,
 				allowNull: true,
@@ -71,6 +75,10 @@ module.exports = {
 			},
 			biography: {
 				type: Sequelize.STRING(5000),
+				allowNull: true,
+			},
+			idCustomer: {
+				type: Sequelize.STRING(150),
 				allowNull: true,
 			},
 			dateCreation: {
