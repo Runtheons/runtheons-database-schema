@@ -6,7 +6,7 @@ module.exports = {
 	up: async(queryInterface, Sequelize) => {
 		try {
 			await queryInterface.sequelize
-				.query(`INSERT INTO users(idUser, status, type, dateBirth, sex, photo, phone, cover, title, biography, idCustomer, name, surname, dateCreation, lastUpdate)
+				.query(`INSERT INTO users(idUser, status, type, dateBirth, sex, photo, phone, cover, title, biography, idCustomer, name, surname, motto, stripeConnectAccount, workOnline, dateCreation, lastUpdate)
 				SELECT sub.*
 				FROM (
 					SELECT 
@@ -23,6 +23,9 @@ module.exports = {
 						O.idCustomer,
 						athletes.name AS name,
 						athletes.surname AS surname,
+						NULL AS motto, 
+						NULL AS stripeConnectAccount, 
+						NULL AS workOnline,
 						O.dateCreation AS dateCreation,
 						O.lastUpdate AS lastUpdate
 					FROM OLD_users AS O
@@ -45,6 +48,9 @@ module.exports = {
 						O.idCustomer,
 						professionists.name AS name,
 						professionists.surname AS surname,
+						professionists.motto AS motto, 
+						professionists.stripeAccount AS stripeConnectAccount, 
+						professionists.workOnline AS workOnline,
 						O.dateCreation AS dateCreation,
 						O.lastUpdate AS lastUpdate
 					FROM OLD_users AS O

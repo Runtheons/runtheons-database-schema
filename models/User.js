@@ -136,6 +136,18 @@ module.exports = (sequelize) => {
 			type: DataTypes.STRING(150),
 			allowNull: true,
 		},
+		motto: {
+			type: DataTypes.STRING(250),
+			allowNull: true,
+		},
+		stripeConnectAccount: {
+			type: DataTypes.STRING(150),
+			allowNull: true,
+		},
+		workOnline: {
+			type: DataTypes.BOOLEAN,
+			allowNull: true,
+		},
 		dateCreation: {
 			type: DataTypes.DATE,
 			allowNull: false,

@@ -81,6 +81,18 @@ module.exports = {
 				type: Sequelize.STRING(150),
 				allowNull: true,
 			},
+			motto: {
+				type: Sequelize.STRING(250),
+				allowNull: true,
+			},
+			stripeConnectAccount: {
+				type: Sequelize.STRING(150),
+				allowNull: true,
+			},
+			workOnline: {
+				type: Sequelize.BOOLEAN,
+				allowNull: true,
+			},
 			dateCreation: {
 				type: Sequelize.DATE,
 				allowNull: false,
