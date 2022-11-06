@@ -33,6 +33,9 @@ module.exports = (models) => {
 
 
 	User.addScope("defaultScope", {
+		where: {
+			status: "ACTIVE"
+		},
 		include: [{
 			association: User.position,
 		}, {
@@ -43,4 +46,29 @@ module.exports = (models) => {
 			association: User.specialities,
 		}]
 	});
+
+	User.addScope("active", {
+		where: {
+			status: "ACTIVE"
+		}
+	});
+
+	User.addScope("deleted", {
+		where: {
+			status: "DELETED"
+		}
+	});
+
+	User.addScope("athlete", {
+		where: {
+			type: "ATHLETE"
+		}
+	});
+
+	User.addScope("professionist", {
+		where: {
+			type: "PROFESSIONIST"
+		}
+	});
+
 };
