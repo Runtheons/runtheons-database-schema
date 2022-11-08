@@ -8,6 +8,7 @@ module.exports = {
 			name: "Roberto",
 			surname: "Gallina",
 			status: "ACTIVE",
+			dateBirth: "2000-07-08",
 			type: "ATHLETE",
 			dateCreation: "2022-01-01 00:00:00",
 			lastUpdate: "2022-01-01 00:00:00"
@@ -16,6 +17,7 @@ module.exports = {
 			name: "Roberto",
 			surname: "Professionista",
 			status: "ACTIVE",
+			dateBirth: "2000-07-08",
 			type: "PROFESSIONSIST",
 			dateCreation: "2022-01-01 00:00:00",
 			lastUpdate: "2022-01-01 00:00:00"

@@ -129,6 +129,22 @@ describe("USER", () => {
 		expect(b.lastUpdate).toEqual("2022-01-01 00:00:00");
 	});
 
+	test("R - Get all users", async() => {
+		const models = await require("../index")();
+		const { User } = models;
+
+		let b = await User.findOne();
+
+		expect(b.idUser).toEqual(1);
+		expect(b.name).toEqual("Roberto");
+		expect(b.surname).toEqual("Gallina");
+		expect(b.status).toEqual("ACTIVE");
+		expect(b.type).toEqual("ATHLETE");
+		expect(b.age).toEqual(22);
+		expect(b.dateCreation).toEqual("2022-01-01 00:00:00");
+		expect(b.lastUpdate).toEqual("2022-01-01 00:00:00");
+	});
+
 	test("U - Update an user name", async() => {
 		const models = await require("../index")();
 		const { User } = models;

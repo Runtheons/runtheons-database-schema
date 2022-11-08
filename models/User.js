@@ -98,6 +98,19 @@ module.exports = (sequelize) => {
 			type: DataTypes.DATEONLY,
 			allowNull: true,
 		},
+		age: {
+			type: DataTypes.VIRTUAL,
+			get() {
+				var today = new Date();
+				var birthDate = new Date(this.dateBirth);
+				var age = today.getFullYear() - birthDate.getFullYear();
+				var m = today.getMonth() - birthDate.getMonth();
+				if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+					age--;
+				}
+				return age;
+			}
+		},
 		sex: {
 			type: DataTypes.ENUM([
 				"MALE",
