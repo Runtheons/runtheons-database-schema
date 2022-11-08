@@ -112,17 +112,13 @@ module.exports = (sequelize) => {
 			}
 		},
 		sex: {
-			type: DataTypes.ENUM([
-				"MALE",
-				"FEMALE",
-				"BINARY",
-				"PANGENDER",
-				"BIGENDER",
-				"GENDER FLUID",
-				"NOT SPECIFIED",
-			]),
-			allowNull: true,
+			type: DataTypes.STRING(50),
+			allowNull: false,
 			defaultValue: "NOT SPECIFIED",
+			references: {
+				model: "sexs",
+				key: 'idSex'
+			}
 		},
 		photo: {
 			type: DataTypes.STRING(250),
