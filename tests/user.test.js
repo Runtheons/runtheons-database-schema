@@ -31,7 +31,7 @@ describe("USER", () => {
 
 	test("C - Add an user again", async() => {
 		const models = await require("../index")();
-		const { User } = models;
+		const { User, Sex } = models;
 
 		let a = await User.findAll();
 
@@ -50,7 +50,7 @@ describe("USER", () => {
 
 	test("C - Add an user again (checking event)", async() => {
 		const models = await require("../index")();
-		const { User, Event } = models;
+		const { User, Event, Sex } = models;
 
 		let a = await Event.findAll();
 
