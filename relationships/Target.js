@@ -4,7 +4,7 @@ module.exports = (models) => {
 	Target.sports = Target.belongsToMany(Sport, {
 		through: 'targetssports',
 		as: 'sports',
-		foreignKey: 'iTarget',
+		foreignKey: 'idTarget',
 		otherKey: 'idSport',
 		timestamps: false
 	});
@@ -12,13 +12,13 @@ module.exports = (models) => {
 	Target.positions = Target.belongsToMany(Position, {
 		through: 'targetspositions',
 		as: 'positions',
-		foreignKey: 'iTarget',
+		foreignKey: 'idTarget',
 		otherKey: 'idPosition',
 		timestamps: false
 	});
 
 	Target.sexs = Target.belongsToMany(Sex, {
-		through: 'targetsspecialities',
+		through: 'targetssexs',
 		as: 'sexs',
 		foreignKey: 'idTarget',
 		otherKey: 'idSex',
@@ -30,7 +30,7 @@ module.exports = (models) => {
 		include: [{
 			association: Target.positions,
 		}, {
-			association: Target.goals,
+			association: Target.sports,
 		}, {
 			association: Target.sexs,
 		}]
