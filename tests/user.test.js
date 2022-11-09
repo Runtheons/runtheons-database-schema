@@ -12,7 +12,7 @@ describe("USER", () => {
 
 	test("C - Add an user", async() => {
 		const models = await require("../index")();
-		const { User } = models;
+		const { User, Sex } = models;
 
 		let a = await User.findAll();
 
@@ -22,7 +22,7 @@ describe("USER", () => {
 			status: "ACTIVE",
 			type: "ATHLETE",
 			dateBirth: "2000-07-08",
-			sex: "MALE"
+			sex: Sex.MALE
 		});
 
 		let b = await User.findAll();
@@ -41,7 +41,7 @@ describe("USER", () => {
 			status: "ACTIVE",
 			type: "ATHLETE",
 			dateBirth: "2000-07-08",
-			sex: "MALE"
+			sex: Sex.MALE
 		});
 
 		let b = await User.findAll();
@@ -60,7 +60,7 @@ describe("USER", () => {
 			status: "ACTIVE",
 			type: "ATHLETE",
 			dateBirth: "2000-07-08",
-			sex: "MALE"
+			sex: Sex.MALE
 		});
 
 		let b = await Event.findAll();
@@ -238,32 +238,6 @@ describe("USER", () => {
 
 		expect(lastEvent.idUser).toEqual(1);
 		expect(lastEvent.type).toEqual("USER_UPDATE_SURNAME");
-		expect(lastEvent.value).toEqual(user.idUser);
-	});
-
-	test("U - Update an user sex (checking event)", async() => {
-		const models = await require("../index")();
-		const { User, Event } = models;
-
-		let a = await Event.findAll();
-
-		let user = await User.findOne({
-			where: {
-				idUser: 1
-			}
-		});
-
-		user.sex = "FEMALE";
-
-		await user.save();
-
-		let b = await Event.findAll();
-		expect(b.length).toEqual(a.length + 1);
-
-		let lastEvent = b[b.length - 1];
-
-		expect(lastEvent.idUser).toEqual(1);
-		expect(lastEvent.type).toEqual("USER_UPDATE_SEX");
 		expect(lastEvent.value).toEqual(user.idUser);
 	});
 

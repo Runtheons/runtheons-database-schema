@@ -1,7 +1,15 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
 
 module.exports = (sequelize) => {
-	class Sex extends Model {}
+	class Sex extends Model {
+		static MALE = "MALE";
+		static FEMALE = "FEMALE";
+		static BINARY = "BINARY";
+		static PANGENDER = "PANGENDER";
+		static BIGENDER = "BIGENDER";
+		static GENDER_FLUID = "GENDER FLUID";
+		static NOT_SPECIFIED = "NOT SPECIFIED";
+	}
 
 	Sex.init({
 		idSex: {

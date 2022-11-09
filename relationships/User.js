@@ -1,9 +1,17 @@
 module.exports = (models) => {
-	const { User, Sport, Goal, Speciality, Position } = models;
+	const { User, Sport, Goal, Speciality, Position, Sex } = models;
 
 	User.position = User.belongsTo(Position, {
 		foreignKey: 'idPosition',
 		as: 'position',
+		timestamps: false
+	});
+
+	User.sex = User.belongsTo(Sex, {
+		foreignKey: {
+			name: "sex",
+			allowNull: true
+		},
 		timestamps: false
 	});
 

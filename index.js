@@ -28,6 +28,7 @@ const loadRelationships = (models) => {
 	require("./relationships/Goal")(models);
 	require("./relationships/Speciality")(models);
 	require("./relationships/Position")(models);
+	require("./relationships/Sex")(models);
 };
 
 const loadHooks = (models) => {
