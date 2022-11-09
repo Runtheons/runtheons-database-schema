@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const { dateFormat } = require("./../utils");
 
-module.exports = (sequelize) => {
+module.exports = (sequelize, models) => {
 	class User extends Model {
 
 		async setSports(sports) {
@@ -116,7 +116,7 @@ module.exports = (sequelize) => {
 			allowNull: false,
 			defaultValue: "NOT SPECIFIED",
 			references: {
-				model: "sexs",
+				model: models.Sex,
 				key: 'idSex'
 			}
 		},
