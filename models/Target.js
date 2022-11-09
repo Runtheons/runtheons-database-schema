@@ -2,7 +2,10 @@ const { Sequelize, DataTypes, Model } = require("sequelize");
 const { dateFormat } = require("./../utils");
 
 module.exports = (sequelize) => {
-	class Target extends Model {}
+	class Target extends Model {
+		static TYPE_AND = 'AND';
+		static TYPE_OR = 'OR';
+	}
 
 	Target.init({
 		idTarget: {
