@@ -9,6 +9,7 @@ const loadModels = (sequelize) => {
 	const Position = require("./models/Position")(sequelize);
 	const Sex = require("./models/Sex")(sequelize);
 	const User = require("./models/User")(sequelize, { Sex });
+	const Target = require("./models/Target")(sequelize);
 
 	return {
 		Event,
@@ -19,6 +20,7 @@ const loadModels = (sequelize) => {
 		Position,
 		Sex,
 		User,
+		Target
 	};
 };
 
@@ -29,6 +31,7 @@ const loadRelationships = (models) => {
 	require("./relationships/Speciality")(models);
 	require("./relationships/Position")(models);
 	require("./relationships/Sex")(models);
+	require("./relationships/Target")(models);
 };
 
 const loadHooks = (models) => {
