@@ -110,7 +110,7 @@ describe("USER", () => {
 		expect(b.lastUpdate).toEqual("2022-01-01 00:00:00");
 	});
 
-	test("R - Get all users using scope", async() => {
+	test("R - Get all users using scope (athlete, active)", async() => {
 		const models = await require("../index")();
 		const { User } = models;
 
@@ -125,6 +125,25 @@ describe("USER", () => {
 		expect(b.surname).toEqual("Gallina");
 		expect(b.status).toEqual("ACTIVE");
 		expect(b.type).toEqual("ATHLETE");
+		expect(b.dateCreation).toEqual("2022-01-01 00:00:00");
+		expect(b.lastUpdate).toEqual("2022-01-01 00:00:00");
+	});
+
+	test("R - Get all users using scope (professionist, active)", async() => {
+		const models = await require("../index")();
+		const { User } = models;
+
+		let a = await User.scope(["defaultScope", "active", "professionist"]).findAll();
+
+		expect(a.length).toEqual(1);
+
+		let b = a[0];
+
+		expect(b.idUser).toEqual(2);
+		expect(b.name).toEqual("Roberto");
+		expect(b.surname).toEqual("Professionista");
+		expect(b.status).toEqual("ACTIVE");
+		expect(b.type).toEqual("PROFESSIONIST");
 		expect(b.dateCreation).toEqual("2022-01-01 00:00:00");
 		expect(b.lastUpdate).toEqual("2022-01-01 00:00:00");
 	});
