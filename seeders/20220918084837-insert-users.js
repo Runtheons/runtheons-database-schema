@@ -18,7 +18,7 @@ module.exports = {
 			surname: "Professionista",
 			status: "ACTIVE",
 			dateBirth: "2000-07-08",
-			type: "PROFESSIONSIST",
+			type: "PROFESSIONIST",
 			dateCreation: "2022-01-01 00:00:00",
 			lastUpdate: "2022-01-01 00:00:00"
 		}]);
