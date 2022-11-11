@@ -2,17 +2,17 @@
 
 module.exports = {
 	up: async(queryInterface, Sequelize) => {
-		await queryInterface.changeColumn("events", "idUser", {
-			type: Sequelize.INTEGER,
-			references: {
-				model: 'users',
-				key: 'idUser'
-			},
-		});
+		// await queryInterface.addConstraint('events', {
+		// 	type: 'FOREIGN KEY',
+		// 	fields: ['idUser'],
+		// 	references: {
+		// 		table: 'users',
+		// 		field: 'idUser'
+		// 	},
+		// 	name: 'events_users_fk',
+		// });
 	},
 	down: async(queryInterface, Sequelize) => {
-		await queryInterface.changeColumn("events", "idUser", {
-			type: Sequelize.INTEGER,
-		});
+		// await queryInterface.removeConstraint('events', 'events_users_fk');
 	},
 };
