@@ -10,11 +10,10 @@ module.exports = {
 				SELECT idUser, idSpeciality
 				FROM OLD_userspeciality
                 WHERE idSpeciality IN (SELECT idSpeciality FROM specialities) AND 
-                	idUser IN (SELECT idUser FROM users)`);
+					idUser IN (SELECT idUser FROM users)`);
 		} catch (e) {
 			console.log(e);
 		}
 	},
-
 	down: async(queryInterface, Sequelize) => {},
 };

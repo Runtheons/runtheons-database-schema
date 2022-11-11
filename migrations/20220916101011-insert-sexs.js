@@ -12,8 +12,5 @@ module.exports = {
 			{ idSex: "NOT SPECIFIED" },
 		]);
 	},
-
-	down: async(queryInterface, Sequelize) => {
-
-	},
+	down: async(queryInterface, Sequelize) => {},
 };

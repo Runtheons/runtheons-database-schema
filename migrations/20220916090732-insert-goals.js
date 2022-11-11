@@ -41,6 +41,5 @@ module.exports = {
 			{ type: "PROFESSIONIST", description: "ENTRARE NEL MONDO SPORTIVO" },
 		]);
 	},
-
 	down: async(queryInterface, Sequelize) => {},
 };

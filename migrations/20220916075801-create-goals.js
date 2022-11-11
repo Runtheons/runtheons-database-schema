@@ -23,7 +23,6 @@ module.exports = {
 			console.log(e);
 		}
 	},
-
 	down: async(queryInterface, Sequelize) => {
 		try {
 			await queryInterface.removeIndex("goals", ["type"]);

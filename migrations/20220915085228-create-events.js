@@ -1,7 +1,5 @@
 "use strict";
 
-const { createTestScheduler } = require("jest");
-
 module.exports = {
 	up: async(queryInterface, Sequelize) => {
 		await queryInterface.createTable("events", {
@@ -33,21 +31,8 @@ module.exports = {
 				allowNull: true,
 			},
 		});
-		try {
-			await queryInterface.addIndex("events", ["idUser"], {
-				unique: false,
-			});
-		} catch (e) {
-			console.log(e);
-		}
 	},
-
 	down: async(queryInterface, Sequelize) => {
-		try {
-			await queryInterface.removeIndex("events", ["idUser"]);
-		} catch (e) {
-			console.log(e);
-		}
 		await queryInterface.dropTable("events");
 	},
 };

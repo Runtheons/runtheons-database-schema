@@ -8,7 +8,6 @@ module.exports = {
 			console.log(e);
 		}
 	},
-
 	down: async(queryInterface, Sequelize) => {
 		try {
 			await queryInterface.renameTable("OLD_usergoal", "usergoal");

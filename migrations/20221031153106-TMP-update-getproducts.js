@@ -138,7 +138,6 @@ LEFT JOIN (
 			console.log(e);
 		}
 	},
-
 	down: async(queryInterface, Sequelize) => {
 		try {
 			await queryInterface.sequelize.query(`ALTER VIEW getproducts AS

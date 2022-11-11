@@ -25,7 +25,6 @@ module.exports = {
 			console.log(e);
 		}
 	},
-
 	down: async(queryInterface, Sequelize) => {
 		await queryInterface.sequelize.query(`UPDATE users SET idPosition = NULL WHERE idPosition IS NOT NULL`);
 		await queryInterface.sequelize.query(`DELETE FROM positions`);

@@ -27,6 +27,5 @@ module.exports = {
 			{ description: "VELA" },
 		]);
 	},
-
 	down: async(queryInterface, Sequelize) => {},
 };

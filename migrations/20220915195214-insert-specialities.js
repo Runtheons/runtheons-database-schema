@@ -21,6 +21,5 @@ module.exports = {
 			{ description: "PSICOLOGO SPORTIVO" },
 		]);
 	},
-
 	down: async(queryInterface, Sequelize) => {},
 };
