@@ -2,7 +2,6 @@
 
 module.exports = {
 	up: async(queryInterface, Sequelize) => {
-
 		await queryInterface.bulkInsert("positions", [{
 			idPosition: 1,
 			latitude: 10,
@@ -22,9 +21,5 @@ module.exports = {
 			addressName: "Rad2"
 		}]);
 	},
-
-	down: async(queryInterface, Sequelize) => {
-
-	}
-
+	down: async(queryInterface, Sequelize) => {}
 };
