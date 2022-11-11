@@ -1,5 +1,5 @@
 module.exports = (models) => {
-	const { User, Sport, Goal, Speciality, Position, Sex } = models;
+	const { User, Sport, Goal, Speciality, Position, Sex, Target } = models;
 
 	User.position = User.belongsTo(Position, {
 		foreignKey: 'idPosition',
@@ -12,7 +12,16 @@ module.exports = (models) => {
 			name: "sex",
 			allowNull: true
 		},
-		timestamps: false
+		timestamps: false,
+	});
+
+	User.target = User.belongsTo(Target, {
+		foreignKey: {
+			name: "idTarget",
+			allowNull: true
+		},
+		timestamps: false,
+		as: 'target',
 	});
 
 	User.sports = User.belongsToMany(Sport, {
@@ -76,7 +85,10 @@ module.exports = (models) => {
 	User.addScope("professionist", {
 		where: {
 			type: "PROFESSIONIST"
-		}
+		},
+		include: [{
+			association: User.target,
+		}]
 	});
 
 };

@@ -10,7 +10,7 @@ module.exports = {
 			dateCreation: "2022-01-01 00:00:00",
 			lastUpdate: "2022-01-01 00:00:00"
 		}]);
-		// await queryInterface.sequelize.query(`UPDATE users SET idTarget=1 WHERE idUser=2`);
+		await queryInterface.sequelize.query(`UPDATE users SET idTarget=1 WHERE idUser=2`);
 
 	},
 	down: async(queryInterface, Sequelize) => {}

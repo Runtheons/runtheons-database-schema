@@ -146,6 +146,10 @@ describe("USER", () => {
 		expect(b.type).toEqual("PROFESSIONIST");
 		expect(b.dateCreation).toEqual("2022-01-01 00:00:00");
 		expect(b.lastUpdate).toEqual("2022-01-01 00:00:00");
+
+		expect(b.target.idTarget).toEqual(1);
+		expect(b.target.minAge).toEqual(20);
+		expect(b.target.maxAge).toEqual(50);
 	});
 
 	test("R - Get all users", async() => {

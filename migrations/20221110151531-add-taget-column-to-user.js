@@ -2,14 +2,9 @@
 
 module.exports = {
 	up: async(queryInterface, Sequelize) => {
-		// await queryInterface.addColumn('users', 'idTarget', {
-		// 	type: Sequelize.INTEGER,
-		// 	allowNull: true,
-		// 	defaultValue: null,
-		// 	after: 'idCustomer'
-		// });
+		await queryInterface.sequelize.query(`ALTER TABLE users ADD idTarget INTEGER AFTER idCustomer`);
 	},
 	down: async(queryInterface, Sequelize) => {
-		// await queryInterface.removeColumn('users', "idTarget");
+		await queryInterface.sequelize.query(`ALTER TABLE users DROP idTarget`);
 	}
 };

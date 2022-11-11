@@ -1,5 +1,5 @@
 module.exports = (models) => {
-	const { Target, Sport, Position, Sex } = models;
+	const { Target, Sport, Position, Sex, User } = models;
 
 	Target.sports = Target.belongsToMany(Sport, {
 		through: 'targetssports',
@@ -25,6 +25,14 @@ module.exports = (models) => {
 		timestamps: false
 	});
 
+	Target.user = Target.hasOne(User, {
+		foreignKey: {
+			name: "idTarget",
+			allowNull: true
+		},
+		as: 'user',
+		timestamps: false
+	})
 
 	Target.addScope("defaultScope", {
 		include: [{

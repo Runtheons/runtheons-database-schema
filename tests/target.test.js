@@ -146,4 +146,22 @@ describe("TARGET", () => {
 		}
 	});
 
+	test("U - Update a professionist target", async() => {
+		const models = await require("../index")();
+		const { User, Target } = models;
+
+		let user = await User.scope(["defaultScope", "active", "professionist"]).findOne({ where: { idUser: 2 } });
+
+		user.target.minAge = 35;
+		user.target.maxAge = 40
+		await user.target.save();
+
+		let b = await Target.findOne({
+			where: {
+				idTarget: 1,
+			}
+		});
+		expect(b.dataValues).toEqual(user.target.dataValues);
+	});
+
 });
