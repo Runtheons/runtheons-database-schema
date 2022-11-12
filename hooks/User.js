@@ -1,5 +1,5 @@
 module.exports = (models) => {
-	const { User, Event, Position } = models;
+	const { User, Event, Position, Target } = models;
 
 	User.addHook("afterCreate", (user, options) => {
 		Event.create({
@@ -57,6 +57,28 @@ module.exports = (models) => {
 				new: JSON.stringify(user.dataValues),
 			});
 		}
+
+		if (user.idTarget != user._previousDataValues.idTarget) {
+			let target = await Target.findAll({ where: { idTarget: user.dataValues.idTarget } });
+
+			if (user._previousDataValues.idTarget == null) {
+				Event.create({
+					idUser: user.idUser,
+					type: "TARGET_CREATE",
+					value: user.idTarget,
+					new: JSON.stringify(target.dataValues),
+				});
+			} else {
+				// Event.create({
+				// 	idUser: user.idUser,
+				// 	type: "USER_UPDATE_POSITION",
+				// 	value: user.idUser,
+				// 	old: JSON.stringify(user._previousDataValues),
+				// 	new: JSON.stringify(user.dataValues),
+				// });
+			}
+		}
+
 		if (user.photo != user._previousDataValues.photo) {
 			Event.create({
 				idUser: user.idUser,

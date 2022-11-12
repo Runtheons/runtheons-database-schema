@@ -20,6 +20,15 @@ module.exports = {
 			type: "PROFESSIONIST",
 			dateCreation: "2022-01-01 00:00:00",
 			lastUpdate: "2022-01-01 00:00:00"
+		}, {
+			idUser: 3,
+			name: "Target",
+			surname: "Prof",
+			status: "ACTIVE",
+			dateBirth: "2000-07-08",
+			type: "PROFESSIONIST",
+			dateCreation: "2022-01-01 00:00:00",
+			lastUpdate: "2022-01-01 00:00:00"
 		}]);
 	},
 	down: async(queryInterface, Sequelize) => {}

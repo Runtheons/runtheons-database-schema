@@ -68,7 +68,7 @@ describe("USER", () => {
 
 		let lastEvent = b[b.length - 1];
 
-		expect(lastEvent.idUser).toEqual(3);
+		expect(lastEvent.idUser).toEqual(4);
 		expect(lastEvent.type).toEqual("USER_CREATE");
 		expect(lastEvent.value).toEqual(user.idUser);
 	});
@@ -97,7 +97,7 @@ describe("USER", () => {
 
 		let a = await User.findAll();
 
-		expect(a.length).toEqual(2);
+		expect(a.length).toEqual(3);
 
 		let b = a[0];
 
@@ -135,7 +135,7 @@ describe("USER", () => {
 
 		let a = await User.scope(["defaultScope", "active", "professionist"]).findAll();
 
-		expect(a.length).toEqual(1);
+		expect(a.length).toEqual(2);
 
 		let b = a[0];
 

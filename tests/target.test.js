@@ -72,14 +72,14 @@ describe("TARGET", () => {
 		expect(b.length).toEqual(a.length + 1);
 	});
 
-	/*
-	test("C - Add a target (checking event)", async() => {
+	test("C - Create a professionist target (checking event)", async() => {
 		const models = await require("../index")();
-		const { Target, Event } = models;
+		const { User, Event } = models;
 
 		let a = await Event.findAll();
 
-		let t = await Target.create({
+		let user = await User.scope(["defaultScope", "active", "professionist"]).findOne({ where: { idUser: 3 } });
+		let target = await user.createTarget({
 			minAge: 20,
 			maxAge: 50,
 		});
@@ -90,11 +90,9 @@ describe("TARGET", () => {
 		let lastEvent = b[b.length - 1];
 
 		expect(lastEvent.idUser).toEqual(3);
-		expect(lastEvent.type).toEqual("USER_CREATE");
-		expect(lastEvent.value).toEqual(user.idUser);
-
+		expect(lastEvent.type).toEqual("TARGET_CREATE");
+		expect(lastEvent.value).toEqual(target.idTarget);
 	});
-	*/
 
 	test("R - Get all targets", async() => {
 		const models = await require("../index")();
@@ -109,6 +107,8 @@ describe("TARGET", () => {
 		expect(b.idTarget).toEqual(1);
 		expect(b.minAge).toEqual(20);
 		expect(b.maxAge).toEqual(50);
+		expect(b.dateCreation).toEqual("2022-01-01 00:00:00");
+		expect(b.lastUpdate).toEqual("2022-01-01 00:00:00");
 	});
 
 	test("U - Update a target age range", async() => {
