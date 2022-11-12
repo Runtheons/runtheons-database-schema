@@ -163,7 +163,29 @@ describe("USER", () => {
 		expect(b.surname).toEqual("Gallina");
 		expect(b.status).toEqual("ACTIVE");
 		expect(b.type).toEqual("ATHLETE");
+
+		const DateReal = global.Date;
+
+		let mockToday = new Date("2022-08-01");
+		jest.spyOn(global, 'Date')
+			.mockImplementation((...args) => {
+				if (args.length) {
+					return new DateReal(...args);
+				}
+				return mockToday
+			});
 		expect(b.age).toEqual(22);
+
+		mockToday = new Date("2022-05-01");
+		jest.spyOn(global, 'Date')
+			.mockImplementation((...args) => {
+				if (args.length) {
+					return new DateReal(...args);
+				}
+				return mockToday
+			});
+
+		expect(b.age).toEqual(21);
 		expect(b.dateCreation).toEqual("2022-01-01 00:00:00");
 		expect(b.lastUpdate).toEqual("2022-01-01 00:00:00");
 	});
