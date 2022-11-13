@@ -1,17 +1,23 @@
-const User = require("./User");
+const { findTargetUser } = require("../utils");
 
 module.exports = (models) => {
-	const { Target, Event, User } = models;
+	const { Target, Event } = models;
 
-	const findUser = async(target) => {
-		let user = await User.findOne({ where: { idTarget: target.idTarget } });
-		if (user !== null) {
-			return user;
+	Target.addHook("afterUpdate", async(target, options) => {
+		let user = await findTargetUser(models, target);
+		if (user == null) {
+			return;
 		}
-		// Cerca ancora
-		return null;
-	}
 
-
-
+		if (target.minAge != target._previousDataValues.minAge ||
+			target.maxAge != target._previousDataValues.maxAge) {
+			Event.create({
+				idUser: user.idUser,
+				type: "TARGET_UPDATE_AGERANGE",
+				value: target.idTarget,
+				old: JSON.stringify(target._previousDataValues),
+				new: JSON.stringify(target.dataValues),
+			});
+		}
+	});
 };

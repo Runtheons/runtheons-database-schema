@@ -32,6 +32,8 @@ describe("TARGET", () => {
 			minAge: 20,
 			maxAge: 50,
 		});
+		await t.reload();
+
 		await t.setSports(allSports);
 		await t.setSexs(allSexs);
 		await t.setPositions(allPositions);
@@ -63,6 +65,8 @@ describe("TARGET", () => {
 			minAge: 20,
 			maxAge: 50,
 		});
+		await t.reload();
+
 		await t.setSports(allSports);
 		await t.setSexs(allSexs);
 		await t.setPositions(allPositions);
@@ -128,6 +132,48 @@ describe("TARGET", () => {
 		expect(b.dataValues).toEqual(target.dataValues);
 	});
 
+	test("U - Update a professionist target age range (check event)", async() => {
+		const models = await require("../index")();
+		const { User, Event } = models;
+
+		let a = await Event.findAll();
+
+		let user = await User.scope(["defaultScope", "active", "professionist"]).findOne({ where: { idUser: 2 } });
+
+		user.target.minAge = 25;
+		await user.target.save();
+
+		let b = await Event.findAll();
+		expect(b.length).toEqual(a.length + 1);
+
+		let lastEvent = b[b.length - 1];
+
+		expect(lastEvent.idUser).toEqual(2);
+		expect(lastEvent.type).toEqual("TARGET_UPDATE_AGERANGE");
+		expect(lastEvent.value).toEqual(user.target.idTarget);
+	});
+
+	test("U - Update a professionist target age range (check event)", async() => {
+		const models = await require("../index")();
+		const { User, Event } = models;
+
+		let a = await Event.findAll();
+
+		let user = await User.scope(["defaultScope", "active", "professionist"]).findOne({ where: { idUser: 2 } });
+
+		user.target.maxAge = 65;
+		await user.target.save();
+
+		let b = await Event.findAll();
+		expect(b.length).toEqual(a.length + 1);
+
+		let lastEvent = b[b.length - 1];
+
+		expect(lastEvent.idUser).toEqual(2);
+		expect(lastEvent.type).toEqual("TARGET_UPDATE_AGERANGE");
+		expect(lastEvent.value).toEqual(user.target.idTarget);
+	});
+
 	test("U - Update an unexisting target", async() => {
 		const models = await require("../index")();
 		const { Target } = models;
@@ -163,5 +209,87 @@ describe("TARGET", () => {
 		});
 		expect(b.dataValues).toEqual(user.target.dataValues);
 	});
+
+	test("U - Update a professionist target sports (check event)", async() => {
+		const models = await require("../index")();
+		const { User, Event, Sport } = models;
+
+		let a = await Event.findAll();
+
+		let user = await User.scope(["defaultScope", "active", "professionist"]).findOne({ where: { idUser: 2 } });
+
+		let sports = await Sport.findAll();
+
+		await user.target.setSports(sports);
+
+		await user.target.save();
+
+		let b = await Event.findAll();
+		expect(b.length).toEqual(a.length + 1);
+
+		let lastEvent = b[b.length - 1];
+
+		expect(lastEvent.idUser).toEqual(2);
+		expect(lastEvent.type).toEqual("TARGET_UPDATE_SPORTS");
+		expect(lastEvent.value).toEqual(user.target.idTarget);
+
+	});
+
+	test("U - Update a professionist target sexs (check event)", async() => {
+		const models = await require("../index")();
+		const { User, Event, Sex } = models;
+
+		let a = await Event.findAll();
+
+		let user = await User.scope(["defaultScope", "active", "professionist"]).findOne({ where: { idUser: 2 } });
+
+		let sexs = await Sex.findAll();
+
+		await user.target.setSexs(sexs);
+
+		await user.target.save();
+
+		let b = await Event.findAll();
+		expect(b.length).toEqual(a.length + 1);
+
+		let lastEvent = b[b.length - 1];
+
+		expect(lastEvent.idUser).toEqual(2);
+		expect(lastEvent.type).toEqual("TARGET_UPDATE_SEXS");
+		expect(lastEvent.value).toEqual(user.target.idTarget);
+
+	});
+
+	test("U - Update a professionist target positions (check event)", async() => {
+		const models = await require("../index")();
+		const { User, Event, Position } = models;
+		const { Op } = require("sequelize")
+
+		let a = await Event.findAll();
+
+		let user = await User.scope(["defaultScope", "active", "professionist"]).findOne({ where: { idUser: 2 } });
+
+		let positions = await Position.findAll({
+			where: {
+				radius: {
+					[Op.ne]: null
+				}
+			}
+		});
+
+		await user.target.setPositions(positions);
+
+		await user.target.save();
+
+		let b = await Event.findAll();
+		expect(b.length).toEqual(a.length + 1);
+
+		let lastEvent = b[b.length - 1];
+
+		expect(lastEvent.idUser).toEqual(2);
+		expect(lastEvent.type).toEqual("TARGET_UPDATE_POSITIONS");
+		expect(lastEvent.value).toEqual(user.target.idTarget);
+	});
+
 
 });
