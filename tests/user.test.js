@@ -166,7 +166,7 @@ describe("USER", () => {
 
 		const DateReal = global.Date;
 
-		let mockToday = new Date("2022-08-01");
+		let mockToday = new Date("2022-07-10");
 		jest.spyOn(global, 'Date')
 			.mockImplementation((...args) => {
 				if (args.length) {
