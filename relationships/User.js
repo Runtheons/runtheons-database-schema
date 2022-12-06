@@ -50,9 +50,6 @@ module.exports = (models) => {
 
 
 	User.addScope("defaultScope", {
-		where: {
-			status: "ACTIVE"
-		},
 		include: [{
 			association: User.position,
 		}, {
