@@ -52,7 +52,7 @@ describe("GOAL", () => {
 
 		let a = await Goal.findAll();
 
-		expect(a.length).toEqual(27);
+		expect(a.length).toEqual(25);
 	});
 
 	test("R - Search 'TROVARE NUOVI CLIENTI'", async() => {

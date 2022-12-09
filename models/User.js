@@ -75,7 +75,7 @@ module.exports = (sequelize, models) => {
 		status: {
 			type: DataTypes.ENUM([
 				"NOT ACTIVE",
-				"SEMIACTIVE",
+				"SEMI ACTIVE",
 				"ACTIVE",
 				"BANNED",
 				"DELETED",

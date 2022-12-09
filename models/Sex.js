@@ -4,7 +4,7 @@ module.exports = (sequelize) => {
 	class Sex extends Model {
 		static MALE = "MALE";
 		static FEMALE = "FEMALE";
-		static BINARY = "BINARY";
+		static NOT_BINARY = "NOT BINARY";
 		static PANGENDER = "PANGENDER";
 		static BIGENDER = "BIGENDER";
 		static GENDER_FLUID = "GENDER FLUID";

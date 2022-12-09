@@ -5,7 +5,7 @@ module.exports = {
 		await queryInterface.bulkInsert("sexs", [
 			{ idSex: "MALE" },
 			{ idSex: "FEMALE" },
-			{ idSex: "BINARY" },
+			{ idSex: "NOT BINARY" },
 			{ idSex: "PANGENDER" },
 			{ idSex: "BIGENDER" },
 			{ idSex: "GENDER FLUID" },
