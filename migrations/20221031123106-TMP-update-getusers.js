@@ -13,7 +13,7 @@ module.exports = {
     users.idCustomer AS idCustomer,
     IF(users.type="ATHLETE", 1, 2) AS userType,
     users.type AS type,
-    Point(positions.latitude,positions.longitude) AS position,
+    Point(positions.longitude, positions.latitude) AS position,
     positions.addressName AS address_name,
     users.photo AS photo,
     users.cover AS cover,
