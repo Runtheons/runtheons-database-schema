@@ -8,7 +8,7 @@ module.exports = {
 			await queryInterface.sequelize
 				.query(`INSERT INTO userssports(idUser, idSport)
 				SELECT idUser, idSport
-				FROM OLD_usersport
+				FROM athletes
                 WHERE idSport IN (SELECT idSport FROM sports) AND 
 					idUser IN (SELECT idUser FROM users)`);
 		} catch (e) {
