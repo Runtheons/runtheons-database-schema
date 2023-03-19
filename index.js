@@ -11,6 +11,9 @@ const loadModels = (sequelize) => {
 	const User = require("./models/User")(sequelize, { Sex });
 	const Target = require("./models/Target")(sequelize);
 
+	const DiaryCategory = require("./models/DiaryCategory")(sequelize);
+	const DiaryResult = require("./models/DiaryResult")(sequelize);
+
 	return {
 		Event,
 		Sport,
@@ -20,7 +23,9 @@ const loadModels = (sequelize) => {
 		Position,
 		Sex,
 		User,
-		Target
+		Target,
+		DiaryCategory,
+		DiaryResult
 	};
 };
 
@@ -32,17 +37,19 @@ const loadRelationships = (models) => {
 	require("./relationships/Position")(models);
 	require("./relationships/Sex")(models);
 	require("./relationships/Target")(models);
+	require("./relationships/DiaryResult")(models);
 };
 
 const loadHooks = (models) => {
 	require("./hooks/LoginMethod")(models);
 	require("./hooks/User")(models);
 	require("./hooks/Target")(models);
+	require("./hooks/DiaryResult")(models);
 };
 
 let defaultConfig = require("./tests/config.json");
 
-module.exports = async(config = defaultConfig.db) => {
+module.exports = async (config = defaultConfig.db) => {
 	const sequelize = new Sequelize(config);
 
 	try {
@@ -57,5 +64,5 @@ module.exports = async(config = defaultConfig.db) => {
 	loadRelationships(models);
 	loadHooks(models);
 
-	return {...models, sequelize };
+	return { ...models, sequelize };
 };

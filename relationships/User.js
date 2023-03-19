@@ -1,5 +1,5 @@
 module.exports = (models) => {
-	const { User, Sport, Goal, Speciality, Position, Sex, Target } = models;
+	const { User, Sport, Goal, Speciality, Position, Sex, Target, DiaryResult } = models;
 
 	User.position = User.belongsTo(Position, {
 		foreignKey: 'idPosition',
@@ -48,6 +48,14 @@ module.exports = (models) => {
 		timestamps: false
 	});
 
+	User.diaryResult = User.hasMany(DiaryResult, {
+		foreignKey: {
+			name: "idDiaryResult",
+			allowNull: true
+		},
+		as: 'diaryResult',
+		timestamps: false
+	})
 
 	User.addScope("defaultScope", {
 		include: [{
