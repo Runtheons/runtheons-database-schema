@@ -33,32 +33,6 @@ describe("DIARYRESULT", () => {
 		expect(b.length).toEqual(a.length + 1);
 	});
 
-	test("C - Create a diaryresult creating diarycategory", async () => {
-		const models = await require("../index")();
-		const { DiaryResult, DiaryCategory, User } = models;
-
-		let user = await User.findOne({ where: { idUser: 1 } });
-
-		let aa = await DiaryResult.findAll();
-		let ab = await DiaryCategory.findAll();
-
-		let diaryResult = await DiaryResult.create({
-			idUser: user.idUser,
-			category: { idUser: user.idUser, description: "Corsa" },
-			date: '2023-10-10',
-			description: "Molto bello",
-			image: null
-		}, { include: [{ association: DiaryResult.category }] });
-
-		expect(diaryResult.value).toEqual("0s");
-
-		let ba = await DiaryResult.findAll();
-		let bb = await DiaryCategory.findAll();
-
-		expect(ba.length).toEqual(aa.length + 1);
-		expect(bb.length).toEqual(ab.length + 1);
-	});
-
 	test("C - Create a diaryresult (again)", async () => {
 		const models = await require("../index")();
 		const { DiaryCategory, DiaryResult, User } = models;

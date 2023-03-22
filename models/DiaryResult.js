@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
 		},
 		date: {
 			type: DataTypes.DATEONLY,
-			allowNull: false,
+			allowNull: false
 		},
 		idDiaryCategory: {
 			type: DataTypes.INTEGER,

@@ -19,6 +19,10 @@ module.exports = (sequelize) => {
 		},
 	}, {
 		sequelize,
+		indexes: [{
+			unique: true,
+			fields: ["idUser", "description"],
+		}],
 		createdAt: false,
 		updatedAt: false,
 		tableName: "diarycategories",

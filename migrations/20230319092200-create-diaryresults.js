@@ -18,7 +18,6 @@ module.exports = {
 			},
 			date: {
 				type: Sequelize.DATEONLY,
-				defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
 				allowNull: false
 			},
 			idDiaryCategory: {
