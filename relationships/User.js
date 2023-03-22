@@ -48,12 +48,9 @@ module.exports = (models) => {
 		timestamps: false
 	});
 
-	User.diaryResult = User.hasMany(DiaryResult, {
-		foreignKey: {
-			name: "idDiaryResult",
-			allowNull: true
-		},
-		as: 'diaryResult',
+	User.diaryResults = User.hasMany(DiaryResult, {
+		foreignKey: "idUser",
+		as: 'diaryResults',
 		timestamps: false
 	})
 

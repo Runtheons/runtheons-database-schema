@@ -15,6 +15,8 @@ module.exports = (models) => {
 
 	DiaryResult.addScope("defaultScope", {
 		include: [{
+			association: DiaryResult.user,
+		}, {
 			association: DiaryResult.category,
 		}]
 	});

@@ -37,6 +37,7 @@ const loadRelationships = (models) => {
 	require("./relationships/Position")(models);
 	require("./relationships/Sex")(models);
 	require("./relationships/Target")(models);
+	require("./relationships/DiaryCategory")(models);
 	require("./relationships/DiaryResult")(models);
 };
 
