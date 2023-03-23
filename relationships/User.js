@@ -1,5 +1,5 @@
 module.exports = (models) => {
-	const { User, Sport, Goal, Speciality, Position, Sex, Target, DiaryResult } = models;
+	const { User, Sport, Goal, Speciality, Position, Sex, Target, DiaryResult, OlimpusRequest } = models;
 
 	User.position = User.belongsTo(Position, {
 		foreignKey: 'idPosition',
@@ -54,6 +54,24 @@ module.exports = (models) => {
 		timestamps: false
 	})
 
+	User.olimpus = User.hasMany(OlimpusRequest, {
+		foreignKey: {
+			name: "idUserA",
+			allowNull: true
+		},
+		as: 'olimpus',
+		timestamps: false
+	})
+
+	User.olimpusRequests = User.hasMany(OlimpusRequest, {
+		foreignKey: {
+			name: "idUserB",
+			allowNull: true
+		},
+		as: 'olimpusRequests',
+		timestamps: false
+	})
+
 	User.addScope("defaultScope", {
 		include: [{
 			association: User.position,
@@ -90,6 +108,12 @@ module.exports = (models) => {
 		},
 		include: [{
 			association: User.target,
+		}]
+	});
+
+	User.addScope("olimpus", {
+		include: [{
+			association: User.olimpus,
 		}]
 	});
 

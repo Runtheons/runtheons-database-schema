@@ -14,6 +14,8 @@ const loadModels = (sequelize) => {
 	const DiaryCategory = require("./models/DiaryCategory")(sequelize);
 	const DiaryResult = require("./models/DiaryResult")(sequelize);
 
+	const OlimpusRequest = require("./models/OlimpusRequest")(sequelize);
+
 	return {
 		Event,
 		Sport,
@@ -25,7 +27,8 @@ const loadModels = (sequelize) => {
 		User,
 		Target,
 		DiaryCategory,
-		DiaryResult
+		DiaryResult,
+		OlimpusRequest
 	};
 };
 
@@ -39,6 +42,7 @@ const loadRelationships = (models) => {
 	require("./relationships/Target")(models);
 	require("./relationships/DiaryCategory")(models);
 	require("./relationships/DiaryResult")(models);
+	require("./relationships/OlimpusRequest")(models);
 };
 
 const loadHooks = (models) => {
