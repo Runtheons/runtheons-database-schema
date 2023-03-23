@@ -19,7 +19,14 @@ module.exports = (sequelize) => {
 			allowNull: false
 		},
 		status: {
-			type: DataTypes.ENUM(["INVITED", "CONNECT", "REJECTED", "DELETED"]),
+			type: DataTypes.ENUM([
+				"INVITED", 	// A invited B
+				"REQUEST",	// B request A to add he
+				"CONNECT", 	// A and B are connect
+				"REJECTED", // B reject the invite of A
+				"REFUSE", 	// A reject to add B
+				"DELETED",  // A remove B
+			]),
 			allowNull: false
 		},
 		message: {

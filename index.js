@@ -50,6 +50,7 @@ const loadHooks = (models) => {
 	require("./hooks/User")(models);
 	require("./hooks/Target")(models);
 	require("./hooks/DiaryResult")(models);
+	require("./hooks/OlimpusRequest")(models);
 };
 
 let defaultConfig = require("./tests/config.json");
