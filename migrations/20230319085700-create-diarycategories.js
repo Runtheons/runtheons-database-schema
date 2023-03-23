@@ -20,14 +20,13 @@ module.exports = {
 				type: Sequelize.STRING(150),
 				allowNull: false
 			},
-		},
-			{
-				uniqueKeys: {
-					diarycategories_multiple_unique: {
-						fields: ["idUser", "description"]
-					}
+		}, {
+			uniqueKeys: {
+				diarycategories_multiple_unique: {
+					fields: ["idUser", "description"]
 				}
-			})
+			}
+		})
 	},
 	down: async (queryInterface, Sequelize) => {
 		await queryInterface.dropTable("diarycategories");
