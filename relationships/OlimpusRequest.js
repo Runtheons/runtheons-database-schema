@@ -15,7 +15,28 @@ module.exports = (models) => {
 
 	OlimpusRequest.addScope("defaultScope", {
 		include: [{
+			association: OlimpusRequest.owner,
+		}, {
 			association: OlimpusRequest.user,
 		}]
 	});
+
+	OlimpusRequest.addScope("invited", {
+		where: {
+			status: "INVITED"
+		}
+	});
+
+	OlimpusRequest.addScope("requested", {
+		where: {
+			status: "REQUESTED"
+		}
+	});
+
+	OlimpusRequest.addScope("connect", {
+		where: {
+			status: "CONNECT"
+		}
+	});
+
 }

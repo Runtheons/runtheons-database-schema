@@ -26,11 +26,11 @@ module.exports = {
 			},
 			status: {
 				type: Sequelize.ENUM([
-					"INVITED", // A invited B
-					"REQUEST",	// B request A to add he
-					"CONNECT", // A and B are connect
+					"INVITED", 	// A invited B
+					"REQUESTED",// B request A to add he
+					"CONNECT", 	// A and B are connect
 					"REJECTED", // B reject the invite of A
-					"REFUSE", // A reject to add B
+					"REFUSED", 	// A reject to add B
 					"DELETED",  // A remove B
 				]),
 				allowNull: false
