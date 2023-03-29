@@ -16,6 +16,9 @@ const loadModels = (sequelize) => {
 
 	const OlimpusRequest = require("./models/OlimpusRequest")(sequelize);
 
+	const GameQuestion = require("./models/GameQuestion")(sequelize);
+	const GameAnser = require("./models/GameAnser")(sequelize);
+
 	return {
 		Event,
 		Sport,
@@ -28,7 +31,9 @@ const loadModels = (sequelize) => {
 		Target,
 		DiaryCategory,
 		DiaryResult,
-		OlimpusRequest
+		OlimpusRequest,
+		GameQuestion,
+		GameAnser
 	};
 };
 
@@ -43,6 +48,7 @@ const loadRelationships = (models) => {
 	require("./relationships/DiaryCategory")(models);
 	require("./relationships/DiaryResult")(models);
 	require("./relationships/OlimpusRequest")(models);
+	require("./relationships/GameQuestion")(models);
 };
 
 const loadHooks = (models) => {
@@ -51,6 +57,7 @@ const loadHooks = (models) => {
 	require("./hooks/Target")(models);
 	require("./hooks/DiaryResult")(models);
 	require("./hooks/OlimpusRequest")(models);
+	require("./hooks/GameQuestion")(models);
 };
 
 let defaultConfig = require("./tests/config.json");

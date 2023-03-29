@@ -1,5 +1,5 @@
 module.exports = (models) => {
-	const { User, Speciality } = models;
+	const { User, Speciality, GameQuestion } = models;
 
 	Speciality.users = Speciality.belongsToMany(User, {
 		through: 'usersspecialities',
@@ -8,4 +8,15 @@ module.exports = (models) => {
 		otherKey: 'idUser',
 		timestamps: false
 	});
+
+
+	Speciality.questions = User.hasMany(GameQuestion, {
+		foreignKey: {
+			name: "idSpeciality",
+			allowNull: true
+		},
+		timestamps: false
+	})
+
+
 };

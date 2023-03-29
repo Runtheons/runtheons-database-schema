@@ -1,5 +1,5 @@
 module.exports = (models) => {
-	const { User, Sport, Goal, Speciality, Position, Sex, Target, DiaryResult, OlimpusRequest } = models;
+	const { User, Sport, Goal, Speciality, Position, Sex, Target, DiaryResult, OlimpusRequest, GameQuestion, GameAnser } = models;
 
 	User.position = User.belongsTo(Position, {
 		foreignKey: 'idPosition',
@@ -71,6 +71,23 @@ module.exports = (models) => {
 		as: 'olimpusRequests',
 		timestamps: false
 	})
+
+	User.questions = User.hasMany(GameQuestion, {
+		foreignKey: {
+			name: "idUser",
+			allowNull: true
+		},
+		timestamps: false
+	})
+
+	User.ansers = User.hasMany(GameAnser, {
+		foreignKey: {
+			name: "idUser",
+			allowNull: true
+		},
+		timestamps: false
+	})
+
 
 	User.addScope("defaultScope", {
 		include: [{
