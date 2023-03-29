@@ -1,16 +1,16 @@
 const exec = require("./exec");
 
 describe("USER", () => {
-	beforeEach(async() => {
+	beforeEach(async () => {
 		await exec("sequelize db:migrate --config ./tests/config.json --env db");
 		await exec("sequelize db:seed:all --config ./tests/config.json --env db");
 	});
 
-	afterEach(async() => {
+	afterEach(async () => {
 		await exec("sequelize db:migrate:undo:all --config ./tests/config.json --env db");
 	});
 
-	test("C - Add an user", async() => {
+	test("C - Add an user", async () => {
 		const models = await require("../index")();
 		const { User, Sex } = models;
 
@@ -29,7 +29,7 @@ describe("USER", () => {
 		expect(b.length).toEqual(a.length + 1);
 	});
 
-	test("C - Add an user again", async() => {
+	test("C - Add an user again", async () => {
 		const models = await require("../index")();
 		const { User, Sex } = models;
 
@@ -48,7 +48,7 @@ describe("USER", () => {
 		expect(b.length).toEqual(a.length + 1);
 	});
 
-	test("C - Add an user again (checking event)", async() => {
+	test("C - Add an user again (checking event)", async () => {
 		const models = await require("../index")();
 		const { User, Event, Sex } = models;
 
@@ -73,7 +73,7 @@ describe("USER", () => {
 		expect(lastEvent.value).toEqual(user.idUser);
 	});
 
-	test("C - Add an existing user", async() => {
+	test("C - Add an existing user", async () => {
 		const models = await require("../index")();
 		const { User } = models;
 		try {
@@ -91,7 +91,7 @@ describe("USER", () => {
 		}
 	});
 
-	test("R - Get all users", async() => {
+	test("R - Get all users", async () => {
 		const models = await require("../index")();
 		const { User } = models;
 
@@ -110,7 +110,7 @@ describe("USER", () => {
 		expect(b.lastUpdate).toEqual("2022-01-01 00:00:00");
 	});
 
-	test("R - Get all users using scope (athlete, active)", async() => {
+	test("R - Get all users using scope (athlete, active)", async () => {
 		const models = await require("../index")();
 		const { User } = models;
 
@@ -129,7 +129,7 @@ describe("USER", () => {
 		expect(b.lastUpdate).toEqual("2022-01-01 00:00:00");
 	});
 
-	test("R - Get all users using scope (professionist, active)", async() => {
+	test("R - Get all users using scope (professionist, active)", async () => {
 		const models = await require("../index")();
 		const { User } = models;
 
@@ -152,7 +152,7 @@ describe("USER", () => {
 		expect(b.target.maxAge).toEqual(50);
 	});
 
-	test("R - Get all users", async() => {
+	test("R - Get all users", async () => {
 		const models = await require("../index")();
 		const { User } = models;
 
@@ -190,7 +190,44 @@ describe("USER", () => {
 		expect(b.lastUpdate).toEqual("2022-01-01 00:00:00");
 	});
 
-	test("U - Update an user name", async() => {
+
+	test("R - Search an athlete", async () => {
+		const models = await require("../index")();
+		const { User } = models;
+
+		// Remember this alredy exists
+		//await User.create({ name: "Roberto", surname: "Gallina", type: "ATHLETE", status: "ACTIVE" });
+
+		await User.create({ name: "Robert", surname: "Gal", type: "ATHLETE", status: "ACTIVE" });
+		await User.create({ name: "Ousseni", surname: "Bara", type: "ATHLETE", status: "ACTIVE" });
+		await User.create({ name: "Eveline", surname: "Entony", type: "ATHLETE", status: "ACTIVE" });
+
+		let b = await User.searchAthlete({ research: ["Gallina", "Bara"] })
+
+		expect(b.length).toEqual(2);
+
+	});
+
+	test("R - Search a professionist", async () => {
+		const models = await require("../index")();
+		const { User } = models;
+
+		// Remember this alredy exists
+		//await User.create({ name: "Roberto", surname: "Gallina", type: "ATHLETE", status: "ACTIVE" });
+
+		await User.create({ name: "Robert", surname: "Gal", type: "ATHLETE", status: "ACTIVE" });
+		await User.create({ name: "Ousseni", surname: "Bara", type: "PROFESSIONIST", status: "ACTIVE" });
+		await User.create({ name: "Eveline", surname: "Entony", type: "PROFESSIONIST", status: "ACTIVE" });
+
+		let b = await User.searchProfessionist({ research: ["Gallina", "Bara"] })
+
+		expect(b.length).toEqual(1);
+
+	});
+
+
+
+	test("U - Update an user name", async () => {
 		const models = await require("../index")();
 		const { User } = models;
 
@@ -212,7 +249,7 @@ describe("USER", () => {
 		expect(b.dataValues).toEqual(user.dataValues);
 	});
 
-	test("U - Update an user name (again)", async() => {
+	test("U - Update an user name (again)", async () => {
 		const models = await require("../index")();
 		const { User } = models;
 
@@ -234,7 +271,7 @@ describe("USER", () => {
 		expect(b.dataValues).toEqual(user.dataValues);
 	});
 
-	test("U - Update an user name (checking event)", async() => {
+	test("U - Update an user name (checking event)", async () => {
 		const models = await require("../index")();
 		const { User, Event } = models;
 
@@ -260,7 +297,7 @@ describe("USER", () => {
 		expect(lastEvent.value).toEqual(user.idUser);
 	});
 
-	test("U - Update an user surname (checking event)", async() => {
+	test("U - Update an user surname (checking event)", async () => {
 		const models = await require("../index")();
 		const { User, Event } = models;
 
@@ -286,7 +323,7 @@ describe("USER", () => {
 		expect(lastEvent.value).toEqual(user.idUser);
 	});
 
-	test("U - Update an user dateBirth (checking event)", async() => {
+	test("U - Update an user dateBirth (checking event)", async () => {
 		const models = await require("../index")();
 		const { User, Event } = models;
 
@@ -312,7 +349,7 @@ describe("USER", () => {
 		expect(lastEvent.value).toEqual(user.idUser);
 	});
 
-	test("U - Update an user photo (checking event)", async() => {
+	test("U - Update an user photo (checking event)", async () => {
 		const models = await require("../index")();
 		const { User, Event } = models;
 
@@ -338,7 +375,7 @@ describe("USER", () => {
 		expect(lastEvent.value).toEqual(user.idUser);
 	});
 
-	test("U - Update an user cover (checking event)", async() => {
+	test("U - Update an user cover (checking event)", async () => {
 		const models = await require("../index")();
 		const { User, Event } = models;
 
@@ -364,7 +401,7 @@ describe("USER", () => {
 		expect(lastEvent.value).toEqual(user.idUser);
 	});
 
-	test("U - Update an user biography (checking event)", async() => {
+	test("U - Update an user biography (checking event)", async () => {
 		const models = await require("../index")();
 		const { User, Event } = models;
 
@@ -390,7 +427,7 @@ describe("USER", () => {
 		expect(lastEvent.value).toEqual(user.idUser);
 	});
 
-	test("U - Update an user title (checking event)", async() => {
+	test("U - Update an user title (checking event)", async () => {
 		const models = await require("../index")();
 		const { User, Event } = models;
 
@@ -416,7 +453,7 @@ describe("USER", () => {
 		expect(lastEvent.value).toEqual(user.idUser);
 	});
 
-	test("U - Update an unexisting user", async() => {
+	test("U - Update an unexisting user", async () => {
 		const models = await require("../index")();
 		const { User } = models;
 		try {
@@ -434,7 +471,7 @@ describe("USER", () => {
 		}
 	});
 
-	test("U - Mark an user as deleted (checking event)", async() => {
+	test("U - Mark an user as deleted (checking event)", async () => {
 		const models = await require("../index")();
 		const { User, Event } = models;
 

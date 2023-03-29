@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes, Model } = require("sequelize");
+const { Sequelize, DataTypes, Model, Op } = require("sequelize");
 const { dateFormat } = require("./../utils");
 
 module.exports = (sequelize, models) => {
@@ -62,6 +62,29 @@ module.exports = (sequelize, models) => {
 			});
 
 			return r;
+		}
+
+		static async search({ research, type }) {
+			return await User.scope("defaultScope", type, "active").findAll({
+				where: {
+					[Op.or]: [
+						{
+							name: { [Op.in]: research }
+						},
+						{
+							surname: { [Op.in]: research }
+						}
+					]
+				}
+			});
+		}
+
+		static async searchAthlete({ research }) {
+			return await User.search({ research, type: "athlete" })
+		}
+
+		static async searchProfessionist({ research }) {
+			return await User.search({ research, type: "professionist" })
 		}
 
 	}
