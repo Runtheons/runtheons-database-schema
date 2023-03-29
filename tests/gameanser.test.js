@@ -34,6 +34,9 @@ describe("GAMEANSER", () => {
 
 		let b = await GameAnser.findAll();
 		expect(b.length).toEqual(a.length + 1);
+
+		expect(b[0].dateCreation).toBe(gameAnser.dateCreation);
+
 	});
 
 	test("C - Create a gamequestion (again)", async () => {
