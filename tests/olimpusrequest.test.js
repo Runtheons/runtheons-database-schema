@@ -17,9 +17,9 @@ describe("OLIMPUSREQUEST", () => {
 		let a = await OlimpusRequest.findAll();
 
 		let olimpusRequest = await OlimpusRequest.create({
-			idUserA: 1,
-			idUserB: 2,
+			idUserOwner: 1,
 			status: "INVITED",
+			idUser: 2,
 			message: "Join my olimpus"
 		});
 
@@ -34,9 +34,9 @@ describe("OLIMPUSREQUEST", () => {
 		let a = await OlimpusRequest.findAll();
 
 		let olimpusRequest = await OlimpusRequest.create({
-			idUserA: 1,
-			idUserB: 2,
+			idUserOwner: 1,
 			status: "INVITED",
+			idUser: 2,
 			message: "Join my olimpus"
 		});
 
@@ -51,9 +51,9 @@ describe("OLIMPUSREQUEST", () => {
 		let a = await Event.findAll();
 
 		let olimpusRequest = await OlimpusRequest.create({
-			idUserA: 1,
-			idUserB: 2,
+			idUserOwner: 1,
 			status: "INVITED",
+			idUser: 2,
 			message: "Join my olimpus"
 		});
 
@@ -74,9 +74,9 @@ describe("OLIMPUSREQUEST", () => {
 		let a = await OlimpusRequest.findAll();
 
 		let olimpusRequest = await OlimpusRequest.create({
-			idUserA: 1,
-			idUserB: 2,
-			status: "REQUEST",
+			idUserOwner: 1,
+			status: "REQUESTED",
+			idUser: 2,
 			message: "Can you add to your olimpus"
 		});
 
@@ -91,9 +91,9 @@ describe("OLIMPUSREQUEST", () => {
 		let a = await OlimpusRequest.findAll();
 
 		let olimpusRequest = await OlimpusRequest.create({
-			idUserA: 1,
-			idUserB: 2,
-			status: "REQUEST",
+			idUserOwner: 1,
+			status: "REQUESTED",
+			idUser: 2,
 			message: "Can you add to your olimpus"
 		});
 
@@ -108,9 +108,9 @@ describe("OLIMPUSREQUEST", () => {
 		let a = await Event.findAll();
 
 		let olimpusRequest = await OlimpusRequest.create({
-			idUserA: 1,
-			idUserB: 2,
-			status: "REQUEST",
+			idUserOwner: 1,
+			status: "REQUESTED",
+			idUser: 2,
 			message: "Can you add to your olimpus"
 		});
 
@@ -131,15 +131,15 @@ describe("OLIMPUSREQUEST", () => {
 
 		// A invited B
 		let olimpusRequest = await OlimpusRequest.create({
-			idUserA: 1,
-			idUserB: 2,
-			status: "INVITED"
+			idUserOwner: 1,
+			status: "INVITED",
+			idUser: 2
 		});
 
 		let a = await OlimpusRequest.scope(["defaultScope", "invited"])
 			.findAll({
 				where: {
-					idUserB: 2
+					idUser: 2
 				}
 			});
 
@@ -161,15 +161,15 @@ describe("OLIMPUSREQUEST", () => {
 
 		// A requested B
 		let olimpusRequest = await OlimpusRequest.create({
-			idUserA: 1,
-			idUserB: 2,
-			status: "REQUESTED"
+			idUserOwner: 1,
+			status: "REQUESTED",
+			idUser: 2,
 		});
 
 		let a = await OlimpusRequest.scope(["defaultScope", "requested"])
 			.findAll({
 				where: {
-					idUserA: 1
+					idUserOwner: 1
 				}
 			});
 
@@ -191,15 +191,15 @@ describe("OLIMPUSREQUEST", () => {
 
 		// A is connect to B
 		let olimpusRequest = await OlimpusRequest.create({
-			idUserA: 1,
-			idUserB: 2,
-			status: "CONNECT"
+			idUserOwner: 1,
+			status: "CONNECT",
+			idUser: 2
 		});
 
 		let a = await OlimpusRequest.scope(["defaultScope", "connect"])
 			.findAll({
 				where: {
-					idUserA: 1
+					idUserOwner: 1
 				}
 			});
 
@@ -221,9 +221,9 @@ describe("OLIMPUSREQUEST", () => {
 
 		// A invited B
 		await OlimpusRequest.create({
-			idUserA: 1,
-			idUserB: 2,
-			status: "INVITED"
+			idUserOwner: 1,
+			status: "INVITED",
+			idUser: 2
 		});
 
 		let a = await Event.findAll();
@@ -250,9 +250,9 @@ describe("OLIMPUSREQUEST", () => {
 
 		// A invited B
 		await OlimpusRequest.create({
-			idUserA: 1,
-			idUserB: 2,
-			status: "REQUESTED"
+			idUserOwner: 1,
+			status: "REQUESTED",
+			idUser: 2
 		});
 
 		let a = await Event.findAll();
@@ -279,9 +279,9 @@ describe("OLIMPUSREQUEST", () => {
 
 		// A invited B
 		await OlimpusRequest.create({
-			idUserA: 1,
-			idUserB: 2,
-			status: "INVITED"
+			idUserOwner: 1,
+			status: "INVITED",
+			idUser: 2
 		});
 
 		let a = await Event.findAll();
@@ -297,7 +297,7 @@ describe("OLIMPUSREQUEST", () => {
 		let lastEvent = b[b.length - 1];
 
 		expect(lastEvent.idUser).toEqual(2);
-		expect(lastEvent.type).toEqual("OLIMPUSREQUEST_DELETE");
+		expect(lastEvent.type).toEqual("OLIMPUSREQUEST_UPDATE");
 		expect(lastEvent.value).toEqual(olimpusRequest.idOlimpusRequest);
 	});
 
@@ -308,9 +308,9 @@ describe("OLIMPUSREQUEST", () => {
 
 		// A invited B
 		await OlimpusRequest.create({
-			idUserA: 1,
-			idUserB: 2,
-			status: "REQUESTED"
+			idUserOwner: 1,
+			status: "REQUESTED",
+			idUser: 2
 		});
 
 		let a = await Event.findAll();
@@ -318,6 +318,35 @@ describe("OLIMPUSREQUEST", () => {
 		let olimpusRequest = await OlimpusRequest.findOne();
 
 		olimpusRequest.status = "REFUSED";
+		await olimpusRequest.save();
+
+		let b = await Event.findAll();
+		expect(b.length).toEqual(a.length + 1);
+
+		let lastEvent = b[b.length - 1];
+
+		expect(lastEvent.idUser).toEqual(1);
+		expect(lastEvent.type).toEqual("OLIMPUSREQUEST_UPDATE");
+		expect(lastEvent.value).toEqual(olimpusRequest.idOlimpusRequest);
+	});
+
+	test("D - Delete a olimpusrequest (checking event)", async () => {
+		const models = await require("../index")();
+
+		const { OlimpusRequest, Event } = models;
+
+		// A invited B
+		await OlimpusRequest.create({
+			idUserOwner: 1,
+			status: "CONNECT",
+			idUser: 2
+		});
+
+		let a = await Event.findAll();
+
+		let olimpusRequest = await OlimpusRequest.findOne();
+
+		olimpusRequest.status = "DELETED";
 		await olimpusRequest.save();
 
 		let b = await Event.findAll();

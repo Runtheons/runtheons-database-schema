@@ -56,7 +56,7 @@ module.exports = (models) => {
 
 	User.olimpus = User.hasMany(OlimpusRequest, {
 		foreignKey: {
-			name: "idUserA",
+			name: "idUserOwner",
 			allowNull: true
 		},
 		as: 'olimpus',
@@ -65,7 +65,7 @@ module.exports = (models) => {
 
 	User.olimpusRequests = User.hasMany(OlimpusRequest, {
 		foreignKey: {
-			name: "idUserB",
+			name: "idUser",
 			allowNull: true
 		},
 		as: 'olimpusRequests',

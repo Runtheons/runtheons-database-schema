@@ -10,11 +10,11 @@ module.exports = (sequelize) => {
 			primaryKey: true,
 			autoIncrement: true,
 		},
-		idUserA: {
+		idUserOwner: {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		idUserB: {
+		idUser: {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
@@ -52,10 +52,10 @@ module.exports = (sequelize) => {
 		sequelize,
 		indexes: [{
 			unique: false,
-			fields: ["idUserA"],
+			fields: ["idUserOwner"],
 		}, {
 			unique: false,
-			fields: ["idUserB"],
+			fields: ["idUser"],
 		},],
 		createdAt: "dateCreation",
 		updatedAt: "lastUpdate",

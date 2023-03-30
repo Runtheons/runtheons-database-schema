@@ -2,13 +2,13 @@ module.exports = (models) => {
 	const { OlimpusRequest, User } = models;
 
 	OlimpusRequest.owner = OlimpusRequest.belongsTo(User, {
-		foreignKey: 'idUserA',
+		foreignKey: 'idUserOwner',
 		as: 'owner',
 		timestamps: false
 	});
 
 	OlimpusRequest.user = OlimpusRequest.belongsTo(User, {
-		foreignKey: 'idUserB',
+		foreignKey: 'idUser',
 		as: 'user',
 		timestamps: false
 	});
