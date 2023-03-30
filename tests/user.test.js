@@ -202,7 +202,7 @@ describe("USER", () => {
 		await User.create({ name: "Ousseni", surname: "Bara", type: "ATHLETE", status: "ACTIVE" });
 		await User.create({ name: "Eveline", surname: "Entony", type: "ATHLETE", status: "ACTIVE" });
 
-		let b = await User.searchAthlete({ research: ["Gallina", "Bara"] })
+		let b = await User.scope("defaultScope", "athlete", "active").search({ research: ["Gallina", "Bara"] })
 
 		expect(b.length).toEqual(2);
 
@@ -219,7 +219,7 @@ describe("USER", () => {
 		await User.create({ name: "Ousseni", surname: "Bara", type: "PROFESSIONIST", status: "ACTIVE" });
 		await User.create({ name: "Eveline", surname: "Entony", type: "PROFESSIONIST", status: "ACTIVE" });
 
-		let b = await User.searchProfessionist({ research: ["Gallina", "Bara"] })
+		let b = await User.scope("defaultScope", "professionist", "active").search({ research: ["Gallina", "Bara"] })
 
 		expect(b.length).toEqual(1);
 

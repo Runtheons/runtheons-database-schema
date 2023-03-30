@@ -65,7 +65,7 @@ module.exports = (sequelize, models) => {
 		}
 
 		static async search({ research, type }) {
-			return await User.scope("defaultScope", type, "active").findAll({
+			return await User.findAll({
 				where: {
 					[Op.or]: [
 						{
@@ -77,14 +77,6 @@ module.exports = (sequelize, models) => {
 					]
 				}
 			});
-		}
-
-		static async searchAthlete({ research }) {
-			return await User.search({ research, type: "athlete" })
-		}
-
-		static async searchProfessionist({ research }) {
-			return await User.search({ research, type: "professionist" })
 		}
 
 	}
